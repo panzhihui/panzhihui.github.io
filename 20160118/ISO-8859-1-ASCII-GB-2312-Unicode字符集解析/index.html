@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ISO-8859-1, ASCII, GB 2312, Unicode字符集解析 | Spanda&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在编程方面经常遇到字符编码的问题，由于对字符集没有一个系统的认识，总是被乱码搞得一头雾水，这篇博文则是对字符编码方面的进行了一下整理，以便日后复习。在学习字符集的过程中，我主要从字符集的（a）编码方式，（b）占用字节，两个方面来进行分析的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ISO-8859-1, ASCII, GB 2312, Unicode字符集解析">
+<meta property="og:url" content="http://panzhihui.github.io/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/index.html">
+<meta property="og:site_name" content="Spanda's blog">
+<meta property="og:description" content="在编程方面经常遇到字符编码的问题，由于对字符集没有一个系统的认识，总是被乱码搞得一头雾水，这篇博文则是对字符编码方面的进行了一下整理，以便日后复习。在学习字符集的过程中，我主要从字符集的（a）编码方式，（b）占用字节，两个方面来进行分析的。">
+<meta property="og:image" content="http://panzhihui.github.io/../img/latin.png">
+<meta property="og:image" content="http://panzhihui.github.io/../img/utf.png">
+<meta property="og:updated_time" content="2016-01-18T12:38:25.485Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ISO-8859-1, ASCII, GB 2312, Unicode字符集解析">
+<meta name="twitter:description" content="在编程方面经常遇到字符编码的问题，由于对字符集没有一个系统的认识，总是被乱码搞得一头雾水，这篇博文则是对字符编码方面的进行了一下整理，以便日后复习。在学习字符集的过程中，我主要从字符集的（a）编码方式，（b）占用字节，两个方面来进行分析的。">
+  
+    <link rel="alternative" href="/atom.xml" title="Spanda&#39;s blog" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Spanda</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">路漫漫其修远兮 吾将上下而求索</p>
+        
+        
+        <form><input type="text" class="search" placeholder=" Search..."></form>
+                
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <li id="Email"><a class="Email" target="_blank" href="/695783783@qq.com" title="Email"></a></li>
+                            
+                                <li id="新浪微博"><a class="新浪微博" target="_blank" href="http://weibo.com/u/2938500313" title="新浪微博"></a></li>
+                            
+                                <li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/panzhihui" title="GitHub"></a></li>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/world/" style="font-size: 10px;">world</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://chenmin.club">梧桐雨</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Spanda</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img lazy-src="/img/avatar.jpg" class="js-avatar">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Spanda</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">路漫漫其修远兮 吾将上下而求索</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <li id="Email"><a class="Email" target="_blank" href="/695783783@qq.com" title="Email"></a></li>
+                            
+                                <li id="新浪微博"><a class="新浪微博" target="_blank" href="http://weibo.com/u/2938500313" title="新浪微博"></a></li>
+                            
+                                <li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/panzhihui" title="GitHub"></a></li>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-ISO-8859-1-ASCII-GB-2312-Unicode字符集解析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/" class="article-date">
+      <time datetime="2016-01-18T09:47:02.000Z" itemprop="datePublished">2016-01-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ISO-8859-1, ASCII, GB 2312, Unicode字符集解析
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/学习总结/">学习总结</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ASCII/">ASCII</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GB2312/">GB2312</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unicode/">unicode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/字符集/">字符集</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>　　在编程方面经常遇到字符编码的问题，由于对字符集没有一个系统的认识，总是被乱码搞得一头雾水，这篇博文则是对字符编码方面的进行了一下整理，以便日后复习。在学习字符集的过程中，我主要从字符集的（a）编码方式，（b）占用字节，两个方面来进行分析的。</p>
+<a id="more"></a>
+<h2 id="ISO-8859-1/ASCII"><a href="#ISO-8859-1/ASCII" class="headerlink" title="ISO-8859-1/ASCII"></a>ISO-8859-1/ASCII</h2><p><em>参考资料：</em><a href="http://baike.baidu.com/link?url=gmGjn47Eajv-Mfqfx9fO-t_0tVXClD_MDB5jWPsVlze9GcC7eyqU2I_ggpmA1TzPCNWTbnbnDPYsAGBQiRPi4a" title="ISO-8859-1" target="_blank" rel="external">ISO-8859-1</a></p>
+<h3 id="Latin1_u4ECB_u7ECD"><a href="#Latin1_u4ECB_u7ECD" class="headerlink" title="Latin1介绍"></a>Latin1介绍</h3><p>　　ISO-8859-1(Latin1)编码是单字节编码，向下兼容ASCII，其编码范围是0x00-0xFF，0x00-0x7F之间完全和ASCII一致，0x80-0x9F之间是控制字符，0xA0-0xFF之间是文字符号。因为ISO-8859-1编码范围使用了单字节内的所有空间，在支持ISO-8859-1的系统中传输和存储其他任何编码的字节流都不会被抛弃。换言之，把其他任何编码的字节流当作ISO-8859-1编码看待都没有问题。下图为ISO-8859-1字符集（包括ASCII字符集，图片来自百科）的编码表，编码方式。</p>
+<p><img src="/../img/latin.png" alt="ISO-8859-1"></p>
+<h3 id="u6D4B_u8BD5"><a href="#u6D4B_u8BD5" class="headerlink" title="测试"></a>测试</h3><p>　　在下面代码中，字符串str”úù§ABD”的前三个字符由于不在ASCII编码范围内，故变量asc不能还原为源字符串。由byte数组的长度来看，ISO-8859-1和ASCII为单字节编码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">iso</span><span class="params">()</span></span>&#123;</span><br><span class="line">    String str = <span class="string">"úù§ABD"</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">byte</span>[] ch = str.getBytes(<span class="string">"ISO-8859-1"</span>);</span><br><span class="line">        String asc = <span class="keyword">new</span> String(ch, <span class="string">"ASCII"</span>);</span><br><span class="line">        String iso = <span class="keyword">new</span> String(ch, <span class="string">"ISO-8859-1"</span>);</span><br><span class="line">        System.out.println(str+<span class="string">" length:"</span>+ch.length+<span class="string">" bytecode:"</span>+byte2hex(ch)+<span class="string">"\nASCII:"</span>+asc +<span class="string">"\nISO-8859-1:"</span>+iso);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出:</p>
+<blockquote>
+<p>úù§ABD length:6 bytecode: fa f9 a7 41 42 44<br>ASCII:???ABD<br>ISO-8859-1:úù§ABD   </p>
+</blockquote>
+<h2 id="GBK/GB2312"><a href="#GBK/GB2312" class="headerlink" title="GBK/GB2312"></a>GBK/GB2312</h2><p><em>参看资料：</em><a href="http://baike.baidu.com/link?url=90R7ukFXUfONX9n6EccJc-gNcAipa6-euVrxRuJunI7u0yYjpZEYzQiZIvT9CeDVl4lF--_cdFOKpCI5UqS3BVr_VQGuP0cNL7G0zfdQoY_jcw3EHSztVXUIylXYR2sKfgGDqVhT1k46rI5npH5pdK" title="GB 2312" target="_blank" rel="external">GB 2312</a>, <a href="http://baike.baidu.com/link?url=iLbHllL0UclVzTRXyV5SB2kxvqxzK-dMeKBlSG8XFdOeqvu0CfxXBphPzhhBZksTHU2jKPcGnqg_Spi-TQHlVyEKSRiY0AHYDataqFcbRTq" title="GBK" target="_blank" rel="external">GBK</a></p>
+<h3 id="u56FD_u6807_u7801_u4ECB_u7ECD"><a href="#u56FD_u6807_u7801_u4ECB_u7ECD" class="headerlink" title="国标码介绍"></a>国标码介绍</h3><p>　　GB 2312标准共收录6763个汉字，其中一级汉字3755个，二级汉字3008个；同时，GB 2312收录了包括拉丁字母、希腊字母、日文平假名及片假名字母、俄语西里尔字母在内的682个全角字符。GB 2312的出现，基本满足了汉字的计算机处理需要，它所收录的汉字已经覆盖中国大陆99.75%的使用频率。对于人名、古汉语等方面出现的罕用字，GB 2312不能处理，这导致了后来GBK及GB 18030汉字字符集的出现。</p>
+<p>　　<strong>汉字区位码：</strong><br>　　GB 2312中对所收汉字（字符）进行了“分区”处理，每区含有94个汉字/符号。每个汉字可以使用一个4位的十进制表示，称为区位码，前两位为区码，后两位为位码。</p>
+<blockquote>
+<p>01-09区为特殊符号。<br>16-55区为一级汉字，按拼音排序。<br>56-87区为二级汉字，按部首/笔画排序。<br>10-15区及88-94区则未有编码。</p>
+</blockquote>
+<p>　　举例来说，“啊”字是GB2312之中的第一个汉字，它的区位码就是1601（十进制）。</p>
+<p>　　<strong>字节编码方式：</strong><br>　　在使用GB2312的程序中，通常采用EUC储存方法（分别将区码和位码加上0xA0），以便兼容于ASCII。<br>　　每个汉字及符号以两个字节来表示。第一个字节称为“高位字节”（也称“区字节）”，第二个字节称为“低位字节”（也称“位字节”）。<br>　　“高位字节”使用了0xA1-0xF7(把01-87区的区号加上0xA0)，“低位字节”使用了0xA1-0xFE(把01-94加上 0xA0)。 由于一级汉字从16区起始，汉字区的“高位字节”的范围是0xB0-0xF7，“低位字节”的范围是0xA1-0xFE，占用的码位是 72*94=6768（72个汉字分区）。其中有5个空位是D7FA-D7FE。<br>　　以“啊”字为例，“高位字节”：0x10(16)+0xA0=0xB0, “低位字节”：0x01(01)+0xA0=0xA1。“啊”编码为0xB0A1<br>GBK全称《汉字内码扩展规范》，GBK编码，是在GB2312-80标准基础上的内码扩展规范，使用了双字节编码方案，其编码范围从8140至FEFE（剔除xx7F），共23940个码位，共收录了21003个汉字。GBK为对GB2312的一次扩充，其高位字节不再要求区号加0xA0，低位字节甚至不要求首位bit为1，这样大大扩充了GB2312的可编码范围。</p>
+<h3 id="u6D4B_u8BD5-1"><a href="#u6D4B_u8BD5-1" class="headerlink" title="测试"></a>测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">gb</span><span class="params">()</span></span>&#123;</span><br><span class="line">    String str = <span class="string">"啊aA"</span>;</span><br><span class="line">    <span class="keyword">byte</span>[] ch;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        ch = str.getBytes(<span class="string">"GB2312"</span>);</span><br><span class="line">        System.out.println(<span class="string">"ch length:"</span>+ch.length+<span class="string">" bytecode:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str.getBytes(<span class="string">"GBK"</span>);</span><br><span class="line">        System.out.println(<span class="string">"ch length:"</span>+ch.length+<span class="string">" bytecode:"</span>+byte2hex(ch));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<blockquote>
+<p>ch length:4 bytecode: b0 a1 61 41<br>ch length:4 bytecode: b0 a1 61 41</p>
+</blockquote>
+<p>　　从程序可以看出GB2312，GBK是不定长的，汉字为2个字节，英文字符为一个字节。由于表示汉字或图形符号的“高位字节”的首个bit都为1，而ASCII首个bit为0，而实现了这两种字符集对ASCII的兼容。</p>
+<h2 id="Unicode/UTF-8/UTF-16/UTF-32"><a href="#Unicode/UTF-8/UTF-16/UTF-32" class="headerlink" title="Unicode/UTF-8/UTF-16/UTF-32"></a>Unicode/UTF-8/UTF-16/UTF-32</h2><p><em>参考资料：</em><a href="https://zh.wikipedia.org/wiki/Unicode" target="_blank" rel="external">Unicode</a>, <a href="https://zh.wikipedia.org/wiki/UTF-8" target="_blank" rel="external">UTF-8</a>, <a href="https://zh.wikipedia.org/wiki/UTF-16" target="_blank" rel="external">UTF-16</a>, <a href="https://zh.wikipedia.org/wiki/UTF-32" target="_blank" rel="external">UTF-32</a>, <a href="https://zh.wikipedia.org/wiki/通用字符集" target="_blank" rel="external">通用字符集</a></p>
+<h3 id="Unicode_u4ECB_u7ECD"><a href="#Unicode_u4ECB_u7ECD" class="headerlink" title="Unicode介绍"></a>Unicode介绍</h3><p>　　Unicode伴随着通用字符集的标准而发展，Unicode至今仍在不断增修，每个新版本都加入更多新的字符。目前最新的版本为2014年6月16日公布的7.0.0。实际应用的Unicode版本对应于UFT-16。Unicode通常会用“U+”然后紧接着4个十六进制的数字来对应一个常用字符，如”U+4EA0“代表某一个字符，若需要表示更多的字符则需要使用五位或六位十六进制数，这是Unicode对字符的表示方式。</p>
+<p>　　UTF（Unicode transfromation format)是Unicode的不同实现，这里的实现指的是字符在计算机中的表示方式。</p>
+<p>　　UTF-8是一种针对Unicode的可变长度字符编码，它可以用来表示Unicode标准中的任何字元，且其编码中的第一个字节仍与ASCII兼容。下图是字符在UTF-8中的编码方式，UTF-8可能使用3、4或更多个字节表示一个字符。</p>
+<p><img src="/../img/utf.png" alt="unicode"></p>
+<p>　　UTF-16使用两个字节表示常用的字符（码位从U+0000至U+FFFF），对于超出U+FFFF外的字符需要4字节表示，这里仅表示大致理解，深入了解请查看维基百科<a href="https://zh.wikipedia.org/wiki/UTF-16" target="_blank" rel="external">UTF-16</a>。</p>
+<p>　　UTF-32是另一种将Unicode字符编码的协议，对每一个Unicode码位均使用定长的4字节来表示。</p>
+<h3 id="u6D4B_u8BD5-2"><a href="#u6D4B_u8BD5-2" class="headerlink" title="测试"></a>测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">unicode</span><span class="params">()</span></span>&#123;</span><br><span class="line">    String str1 = <span class="string">"中文测试"</span>;</span><br><span class="line">    <span class="keyword">byte</span>[] ch;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        ch = str1.getBytes(<span class="string">"unicode"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" unicode:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str1.getBytes(<span class="string">"utf-8"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" utf-8:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str1.getBytes(<span class="string">"utf-16"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" utf-16:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str1.getBytes(<span class="string">"utf-32"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" utf-32:"</span>+byte2hex(ch));</span><br><span class="line">        str1 = <span class="string">"test"</span>;</span><br><span class="line">        ch = str1.getBytes(<span class="string">"unicode"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" unicode:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str1.getBytes(<span class="string">"utf-8"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" utf-8:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str1.getBytes(<span class="string">"utf-16"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" utf-16:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str1.getBytes(<span class="string">"utf-32"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" utf-32:"</span>+byte2hex(ch));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<blockquote>
+<p>中文测试 length:10 unicode: fe ff 4e 2d 65 87 6d 4b 8b d5<br>中文测试 length:12 utf-8: e4 b8 ad e6 96 87 e6 b5 8b e8 af 95<br>中文测试 length:10 utf-16: fe ff 4e 2d 65 87 6d 4b 8b d5<br>中文测试 length:16 utf-32: 00 00 4e 2d 00 00 65 87 00 00 6d 4b 00 00 8b d5<br>test length:10 unicode: fe ff 00 74 00 65 00 73 00 74<br>test length:4 utf-8: 74 65 73 74<br>test length:10 utf-16: fe ff 00 74 00 65 00 73 00 74<br>test length:16 utf-32: 00 00 00 74 00 00 00 65 00 00 00 73 00 00 00 74</p>
+</blockquote>
+<p>　　从实验结果来看，UTF-8使用3个字节表示中文字符，1字节表示英文字符。UTF-32使用4个字节来表示每一种字符。在Unicode和UTF-16用两个字节表示中英文字符，且前端均有一个feff字节，该字节为BOM（Byte Order Mark）表示字节读取顺序。</p>
+<p>　　本文主要记录了作者学习字符集的过程，如有错误，望谅解指正。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Spanda 的个人博客">Spanda</a></p>
+        <p><span>发布时间:</span>2016年01月18日 - 17时47分</p>
+        <p><span>最后更新:</span>2016年01月18日 - 20时38分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/" title="ISO-8859-1, ASCII, GB 2312, Unicode字符集解析">http://panzhihui.github.io/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/20160118/hello-world/">
+                    Hello World
+                </a>
+            </div>
+        
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ISO-8859-1/ASCII"><span class="toc-number">1.</span> <span class="toc-text">ISO-8859-1/ASCII</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Latin1_u4ECB_u7ECD"><span class="toc-number">1.1.</span> <span class="toc-text">Latin1介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6D4B_u8BD5"><span class="toc-number">1.2.</span> <span class="toc-text">测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GBK/GB2312"><span class="toc-number">2.</span> <span class="toc-text">GBK/GB2312</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u56FD_u6807_u7801_u4ECB_u7ECD"><span class="toc-number">2.1.</span> <span class="toc-text">国标码介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6D4B_u8BD5-1"><span class="toc-number">2.2.</span> <span class="toc-text">测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unicode/UTF-8/UTF-16/UTF-32"><span class="toc-number">3.</span> <span class="toc-text">Unicode/UTF-8/UTF-16/UTF-32</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Unicode_u4ECB_u7ECD"><span class="toc-number">3.1.</span> <span class="toc-text">Unicode介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6D4B_u8BD5-2"><span class="toc-number">3.2.</span> <span class="toc-text">测试</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+<div class="share">
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+    <a href="#" class="bds_copy" data-cmd="copy" title="复制网址"></a>
+    <a href="#" class="bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+    </div>
+    <script>
+        window._bd_share_config={
+            "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+</div>
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/20160118/hello-world/" title="上一篇: Hello World">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/20160118/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Spanda
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的静态博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减双栏 Hexo 博客主题">Yelee</a> by MOxFIVE
+            </div>
+        </div>
+        <div class="visit">
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <span id="site-visit" >本站到访数: 
+                    <span id="busuanzi_value_site_uv"></span>
+                </span>
+            </span>
+            <span id="busuanzi_container_page_pv" style='display:none'>
+                <span id="page-visit">, 本页阅读量: 
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+            </span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
