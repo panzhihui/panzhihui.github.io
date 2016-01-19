@@ -11,9 +11,9 @@
 <meta property="og:url" content="http://panzhihui.github.io/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/index.html">
 <meta property="og:site_name" content="Spanda's blog">
 <meta property="og:description" content="在编程方面经常遇到字符编码的问题，由于对字符集没有一个系统的认识，总是被乱码搞得一头雾水，这篇博文则是对字符编码方面的进行了一下整理，以便日后复习。在学习字符集的过程中，我主要从字符集的（a）编码方式，（b）占用字节，两个方面来进行分析的。">
-<meta property="og:image" content="http://panzhihui.github.io/../img/latin.png">
-<meta property="og:image" content="http://panzhihui.github.io/../img/utf.png">
-<meta property="og:updated_time" content="2016-01-18T12:38:25.485Z">
+<meta property="og:image" content="http://panzhihui.github.io/../img/charset/latin.png">
+<meta property="og:image" content="http://panzhihui.github.io/../img/charset/utf.png">
+<meta property="og:updated_time" content="2016-01-19T15:01:54.132Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ISO-8859-1, ASCII, GB 2312, Unicode字符集解析">
 <meta name="twitter:description" content="在编程方面经常遇到字符编码的问题，由于对字符集没有一个系统的认识，总是被乱码搞得一头雾水，这篇博文则是对字符编码方面的进行了一下整理，以便日后复习。在学习字符集的过程中，我主要从字符集的（a）编码方式，（b）占用字节，两个方面来进行分析的。">
@@ -135,7 +135,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/world/" style="font-size: 10px;">world</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a>
+                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a>
                     </div>
                 </section>
                 
@@ -251,7 +251,7 @@
 <a id="more"></a>
 <h2 id="ISO-8859-1/ASCII"><a href="#ISO-8859-1/ASCII" class="headerlink" title="ISO-8859-1/ASCII"></a>ISO-8859-1/ASCII</h2><p><em>参考资料：</em><a href="http://baike.baidu.com/link?url=gmGjn47Eajv-Mfqfx9fO-t_0tVXClD_MDB5jWPsVlze9GcC7eyqU2I_ggpmA1TzPCNWTbnbnDPYsAGBQiRPi4a" title="ISO-8859-1" target="_blank" rel="external">ISO-8859-1</a></p>
 <h3 id="Latin1_u4ECB_u7ECD"><a href="#Latin1_u4ECB_u7ECD" class="headerlink" title="Latin1介绍"></a>Latin1介绍</h3><p>　　ISO-8859-1(Latin1)编码是单字节编码，向下兼容ASCII，其编码范围是0x00-0xFF，0x00-0x7F之间完全和ASCII一致，0x80-0x9F之间是控制字符，0xA0-0xFF之间是文字符号。因为ISO-8859-1编码范围使用了单字节内的所有空间，在支持ISO-8859-1的系统中传输和存储其他任何编码的字节流都不会被抛弃。换言之，把其他任何编码的字节流当作ISO-8859-1编码看待都没有问题。下图为ISO-8859-1字符集（包括ASCII字符集，图片来自百科）的编码表，编码方式。</p>
-<p><img src="/../img/latin.png" alt="ISO-8859-1"></p>
+<p><img src="/../img/charset/latin.png" alt="ISO-8859-1"></p>
 <h3 id="u6D4B_u8BD5"><a href="#u6D4B_u8BD5" class="headerlink" title="测试"></a>测试</h3><p>　　在下面代码中，字符串str”úù§ABD”的前三个字符由于不在ASCII编码范围内，故变量asc不能还原为源字符串。由byte数组的长度来看，ISO-8859-1和ASCII为单字节编码。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">iso</span><span class="params">()</span></span>&#123;</span><br><span class="line">    String str = <span class="string">"úù§ABD"</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">byte</span>[] ch = str.getBytes(<span class="string">"ISO-8859-1"</span>);</span><br><span class="line">        String asc = <span class="keyword">new</span> String(ch, <span class="string">"ASCII"</span>);</span><br><span class="line">        String iso = <span class="keyword">new</span> String(ch, <span class="string">"ISO-8859-1"</span>);</span><br><span class="line">        System.out.println(str+<span class="string">" length:"</span>+ch.length+<span class="string">" bytecode:"</span>+byte2hex(ch)+<span class="string">"\nASCII:"</span>+asc +<span class="string">"\nISO-8859-1:"</span>+iso);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出:</p>
@@ -276,7 +276,7 @@
 <h3 id="Unicode_u4ECB_u7ECD"><a href="#Unicode_u4ECB_u7ECD" class="headerlink" title="Unicode介绍"></a>Unicode介绍</h3><p>　　Unicode伴随着通用字符集的标准而发展，Unicode至今仍在不断增修，每个新版本都加入更多新的字符。目前最新的版本为2014年6月16日公布的7.0.0。实际应用的Unicode版本对应于UFT-16。Unicode通常会用“U+”然后紧接着4个十六进制的数字来对应一个常用字符，如”U+4EA0“代表某一个字符，若需要表示更多的字符则需要使用五位或六位十六进制数，这是Unicode对字符的表示方式。</p>
 <p>　　UTF（Unicode transfromation format)是Unicode的不同实现，这里的实现指的是字符在计算机中的表示方式。</p>
 <p>　　UTF-8是一种针对Unicode的可变长度字符编码，它可以用来表示Unicode标准中的任何字元，且其编码中的第一个字节仍与ASCII兼容。下图是字符在UTF-8中的编码方式，UTF-8可能使用3、4或更多个字节表示一个字符。</p>
-<p><img src="/../img/utf.png" alt="unicode"></p>
+<p><img src="/../img/charset/utf.png" alt="unicode"></p>
 <p>　　UTF-16使用两个字节表示常用的字符（码位从U+0000至U+FFFF），对于超出U+FFFF外的字符需要4字节表示，这里仅表示大致理解，深入了解请查看维基百科<a href="https://zh.wikipedia.org/wiki/UTF-16" target="_blank" rel="external">UTF-16</a>。</p>
 <p>　　UTF-32是另一种将Unicode字符编码的协议，对每一个Unicode码位均使用定长的4字节来表示。</p>
 <h3 id="u6D4B_u8BD5-2"><a href="#u6D4B_u8BD5-2" class="headerlink" title="测试"></a>测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">unicode</span><span class="params">()</span></span>&#123;</span><br><span class="line">    String str1 = <span class="string">"中文测试"</span>;</span><br><span class="line">    <span class="keyword">byte</span>[] ch;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        ch = str1.getBytes(<span class="string">"unicode"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" unicode:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str1.getBytes(<span class="string">"utf-8"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" utf-8:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str1.getBytes(<span class="string">"utf-16"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" utf-16:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str1.getBytes(<span class="string">"utf-32"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" utf-32:"</span>+byte2hex(ch));</span><br><span class="line">        str1 = <span class="string">"test"</span>;</span><br><span class="line">        ch = str1.getBytes(<span class="string">"unicode"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" unicode:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str1.getBytes(<span class="string">"utf-8"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" utf-8:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str1.getBytes(<span class="string">"utf-16"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" utf-16:"</span>+byte2hex(ch));</span><br><span class="line">        ch = str1.getBytes(<span class="string">"utf-32"</span>);</span><br><span class="line">        System.out.println(str1+<span class="string">" length:"</span>+ch.length+<span class="string">" utf-32:"</span>+byte2hex(ch));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -297,7 +297,7 @@
         <p><span>本文标题:</span><a href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Spanda 的个人博客">Spanda</a></p>
         <p><span>发布时间:</span>2016年01月18日 - 17时47分</p>
-        <p><span>最后更新:</span>2016年01月18日 - 20时38分</p>
+        <p><span>最后更新:</span>2016年01月19日 - 23时01分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/" title="ISO-8859-1, ASCII, GB 2312, Unicode字符集解析">http://panzhihui.github.io/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/</a>
             <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -314,8 +314,8 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/20160118/hello-world/">
-                    Hello World
+                <a href="/20160119/使用hexo及github搭建个人博客记录/">
+                    使用hexo及github搭建个人博客记录
                 </a>
             </div>
         
@@ -395,7 +395,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/20160118/hello-world/" title="上一篇: Hello World">
+            <a href="/20160119/使用hexo及github搭建个人博客记录/" title="上一篇: 使用hexo及github搭建个人博客记录">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -407,7 +407,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/20160118/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/20160119/使用hexo及github搭建个人博客记录/">使用hexo及github搭建个人博客记录</a></li><li class="post-list-item"><a class="post-list-link" href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a></li></ul>
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");

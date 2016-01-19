@@ -1303,18 +1303,6 @@ color
   line-height: 1.65em;
   padding: 0 2em;
 }
-.article-entry a:hover {
-  text-decoration: underline;
-  color: #9c9;
-}
-.article-entry p {
-  margin-top: 0.2em;
-  font-size: 1em;
-}
-.article-entry li {
-  margin: 0.1em;
-  font-size: 1.1em;
-}
 .article-entry blockquote {
   padding: 0.4em 20px;
   margin-top: 10px;
@@ -1326,6 +1314,18 @@ color
 }
 .article-entry blockquote blockquote {
   border-left: none;
+}
+.article-entry a:hover {
+  text-decoration: underline;
+  color: #9c9;
+}
+.article-entry p {
+  margin-top: 0.2em;
+  font-size: 1em;
+}
+.article-entry li {
+  margin: 0.1em;
+  font-size: 1.1em;
 }
 .article-entry em {
   font-style: italic;
