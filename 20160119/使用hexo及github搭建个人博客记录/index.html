@@ -16,7 +16,7 @@
 <meta property="og:image" content="http://panzhihui.github.io/../img/hexo/git_conn.png">
 <meta property="og:image" content="http://panzhihui.github.io/../img/hexo/site_structure.png">
 <meta property="og:image" content="http://panzhihui.github.io/../img/hexo/duo_shuo.png">
-<meta property="og:updated_time" content="2016-01-20T12:41:21.160Z">
+<meta property="og:updated_time" content="2016-01-21T06:38:49.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Hexo及GitHub搭建个人博客记录">
 <meta name="twitter:description" content="记录本人使用Hexo框架在GitHub平台上搭建个人博客的过程。Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。GitHub是一个利用Git进行版本控制、专门用于存放软件代码与内容的共享虚拟主机服务。Hexo在本地可以一键轻松建立站点，并通过简单的配置，将站点部署到GitHub平台上。本文系统为WIN">
@@ -147,11 +147,11 @@
                 <section class="switch-part switch-part3">
                     <div id="js-friends">
                     
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://chenmin.club">Dreammin</a>
+                    
                       <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
                     
                       <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://chenmin.club">梧桐雨</a>
                     
                     </div>
                 </section>
@@ -288,15 +288,15 @@
 <pre><code>node_modules: Hexo框架渲染页面等用到的一些包
 public：包含Hexo框架生成的静态页面
 scffolds：创建页面是用到的模板，默认有post、page、draft
-source：markdown文件
-themes：站点主题
+source：markdown文件等
+themes：站点主题目录
 _config.xml: 站点配置文件
-</code></pre><p>　　创建站点完成<code>hexo server</code>启动站点，即可在<code>localhost:4000</code>上看到Hexo默认的hello world页面。</p>
+</code></pre><p>　　创建站点完成，依次用<code>hexo generate</code>命令生成静态页面，和用<code>hexo server</code>启动站点，即可在<code>localhost:4000</code>上看到Hexo默认的hello world页面。</p>
 <h3 id="u5E38_u7528_u914D_u7F6E"><a href="#u5E38_u7528_u914D_u7F6E" class="headerlink" title="常用配置"></a>常用配置</h3><p>　　一目了然的就不说了，介绍几个主要的，大多数配置使用默认即可</p>
 <ul>
 <li>permalink：文章的链接URL格式，默认如下2016/01/19/文章名，可自行修改</li>
 <li>new_post_name：采用<code>hexo new</code>新建一篇文章时markdown文件的命名格式</li>
-<li>theme: 采用的主题，对应到themes</li>
+<li>theme: 采用的主题，对应到themes目录下的主题</li>
 <li>deploy: 部署站点，如到GitHub平台下的参数<ul>
 <li>type： git</li>
 <li>repository：GitHub下的库地址</li>
@@ -306,11 +306,11 @@ _config.xml: 站点配置文件
 </ul>
 <h3 id="u5C06_u7AD9_u70B9_u90E8_u7F72_u5230GitHub"><a href="#u5C06_u7AD9_u70B9_u90E8_u7F72_u5230GitHub" class="headerlink" title="将站点部署到GitHub"></a>将站点部署到GitHub</h3><p>1.在GitHub上创建一个新库，命名为：账号名.github.io<br>2.填写<code>deploy</code>下属性的值，如上，branch可填master分支<br>3.生成静态文件</p>
 <blockquote>
-<p>hexo g</p>
+<p>hexo generate</p>
 </blockquote>
 <p>4.部署到GitHub</p>
 <blockquote>
-<p>hexo d</p>
+<p>hexo deploy</p>
 </blockquote>
 <h2 id="u8BBE_u7F6E_u8BC4_u8BBA"><a href="#u8BBE_u7F6E_u8BC4_u8BBA" class="headerlink" title="设置评论"></a>设置评论</h2><p>　　本人是先更换主题，然后在设置评论的，这里也只记录下自己的操作。</p>
 <h3 id="u4E3B_u9898_u66F4_u6362"><a href="#u4E3B_u9898_u66F4_u6362" class="headerlink" title="主题更换"></a>主题更换</h3><p>　　下载相应的主题到themes目录下，然后在<em>站点的配置文件下_config.xml</em>将<code>theme:</code>该为你的主题名字即可。</p>
@@ -333,7 +333,7 @@ _config.xml: 站点配置文件
         <p><span>本文标题:</span><a href="/20160119/使用hexo及github搭建个人博客记录/">使用Hexo及GitHub搭建个人博客记录</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Spanda 的个人博客">Spanda</a></p>
         <p><span>发布时间:</span>2016年01月19日 - 23时45分</p>
-        <p><span>最后更新:</span>2016年01月20日 - 20时41分</p>
+        <p><span>最后更新:</span>2016年01月21日 - 14时38分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/20160119/使用hexo及github搭建个人博客记录/" title="使用Hexo及GitHub搭建个人博客记录">http://panzhihui.github.io/20160119/使用hexo及github搭建个人博客记录/</a>
             <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20160119/使用hexo及github搭建个人博客记录/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -499,7 +499,7 @@ _config.xml: 站点配置文件
                 &copy; 2016 Spanda
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的静态博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减双栏 Hexo 博客主题">Yelee</a> by MOxFIVE
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的静态博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减双栏 Hexo 博客主题">Yelee</a>
             </div>
         </div>
         <div class="visit">
@@ -520,21 +520,30 @@ _config.xml: 站点配置文件
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="/js/main.js" type="text/javascript"></script>
 
-    <script>
-        $(document).ready(function() {
-            var iPad = window.navigator.userAgent.indexOf('iPad');
-            if (iPad > -1 || $(".left-col").css("display") === "none") {
-                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
-                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
-                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
-            }
-            else {
-                var backgroundnum = 5;
-                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
-            }
-        })
-    </script>
+    <style>
+        body {
+          background: black;
+        }
+        #container .left-col {
+          background: white;
+        }
+        .article-inner {
+          background: white;
+          margin-bottom: 1em;
+        }
+        .post-nav-button {
+          background: #ececec;
+        }
+        #header .header-nav .social #GitHub {
+          background-color: #bfd3ec;
+        }
+        #post-nav-button a {
+          background: rgba(215, 216, 215, .2);
+        }
+        .post-list {
+          background: white;
+        }
+    </style>
 
 
 
