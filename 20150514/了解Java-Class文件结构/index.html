@@ -3,23 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>使用Hexo及GitHub搭建个人博客记录 | Spanda&#39;s blog</title>
+  <title>了解Java Class文件结构 | Spanda&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录本人使用Hexo框架在GitHub平台上搭建个人博客的过程。Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。GitHub是一个利用Git进行版本控制、专门用于存放软件代码与内容的共享虚拟主机服务。Hexo在本地可以一键轻松建立站点，并通过简单的配置，将站点部署到GitHub平台上。本文系统为WIN">
+  <meta name="description" content="我们都知道Java文件经过编译后是一个二进制的class文件，但多数情况下我们更了解Java语法，它能帮助我们编写漂亮的代码，但知道Java更底层的东西我们就能写出更高效的代码。在研究findbugs工具时，由于其使用BCEL来处理class文件，这就要求我们对class文件的基本结构有一定的了解。这里纯粹是记录我在学习class文件结构的一些总结，要更系统深入的学习可以查看官方文档The Jav">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Hexo及GitHub搭建个人博客记录">
-<meta property="og:url" content="http://panzhihui.github.io/20160119/使用hexo及github搭建个人博客记录/index.html">
+<meta property="og:title" content="了解Java Class文件结构">
+<meta property="og:url" content="http://panzhihui.github.io/20150514/了解Java-Class文件结构/index.html">
 <meta property="og:site_name" content="Spanda's blog">
-<meta property="og:description" content="记录本人使用Hexo框架在GitHub平台上搭建个人博客的过程。Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。GitHub是一个利用Git进行版本控制、专门用于存放软件代码与内容的共享虚拟主机服务。Hexo在本地可以一键轻松建立站点，并通过简单的配置，将站点部署到GitHub平台上。本文系统为WIN">
-<meta property="og:image" content="http://panzhihui.github.io/../img/hexo/npm_install_error.png">
-<meta property="og:image" content="http://panzhihui.github.io/../img/hexo/add_ssh_key.png">
-<meta property="og:image" content="http://panzhihui.github.io/../img/hexo/git_conn.png">
-<meta property="og:image" content="http://panzhihui.github.io/../img/hexo/site_structure.png">
-<meta property="og:image" content="http://panzhihui.github.io/../img/hexo/duo_shuo.png">
-<meta property="og:updated_time" content="2016-01-21T06:38:49.182Z">
+<meta property="og:description" content="我们都知道Java文件经过编译后是一个二进制的class文件，但多数情况下我们更了解Java语法，它能帮助我们编写漂亮的代码，但知道Java更底层的东西我们就能写出更高效的代码。在研究findbugs工具时，由于其使用BCEL来处理class文件，这就要求我们对class文件的基本结构有一定的了解。这里纯粹是记录我在学习class文件结构的一些总结，要更系统深入的学习可以查看官方文档The Jav">
+<meta property="og:image" content="http://panzhihui.github.io/../img/cnblog/class_file.png">
+<meta property="og:image" content="http://panzhihui.github.io/../img/cnblog/constant.png">
+<meta property="og:image" content="http://panzhihui.github.io/../img/cnblog/access_flags.png">
+<meta property="og:image" content="http://panzhihui.github.io/../img/cnblog/attribute.png">
+<meta property="og:updated_time" content="2016-01-21T18:35:26.501Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用Hexo及GitHub搭建个人博客记录">
-<meta name="twitter:description" content="记录本人使用Hexo框架在GitHub平台上搭建个人博客的过程。Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。GitHub是一个利用Git进行版本控制、专门用于存放软件代码与内容的共享虚拟主机服务。Hexo在本地可以一键轻松建立站点，并通过简单的配置，将站点部署到GitHub平台上。本文系统为WIN">
+<meta name="twitter:title" content="了解Java Class文件结构">
+<meta name="twitter:description" content="我们都知道Java文件经过编译后是一个二进制的class文件，但多数情况下我们更了解Java语法，它能帮助我们编写漂亮的代码，但知道Java更底层的东西我们就能写出更高效的代码。在研究findbugs工具时，由于其使用BCEL来处理class文件，这就要求我们对class文件的基本结构有一定的了解。这里纯粹是记录我在学习class文件结构的一些总结，要更系统深入的学习可以查看官方文档The Jav">
   
     <link rel="alternative" href="/atom.xml" title="Spanda&#39;s blog" type="application/atom+xml">
   
@@ -208,11 +207,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-使用hexo及github搭建个人博客记录" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-了解Java-Class文件结构" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/20160119/使用hexo及github搭建个人博客记录/" class="article-date">
-      <time datetime="2016-01-19T15:45:54.000Z" itemprop="datePublished">2016-01-19</time>
+      <a href="/20150514/了解Java-Class文件结构/" class="article-date">
+      <time datetime="2015-05-13T17:58:55.000Z" itemprop="datePublished">2015-05-14</time>
 </a>
     </div>
   
@@ -225,7 +224,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      使用Hexo及GitHub搭建个人博客记录
+      了解Java Class文件结构
     </h1>
   
 
@@ -234,13 +233,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/实践笔记/">实践笔记</a>
+    <a class="article-category-link" href="/categories/学习总结/">学习总结</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bytecode/">bytecode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/class/">class</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -250,78 +249,83 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　　记录本人使用Hexo框架在GitHub平台上搭建个人博客的过程。<a href="https://hexo.io/zh-cn/docs/index.html" title="hexo" target="_blank" rel="external">Hexo</a> 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<a href="https://github.com/" title="github" target="_blank" rel="external">GitHub</a>是一个利用Git进行版本控制、专门用于存放软件代码与内容的共享虚拟主机服务。Hexo在本地可以一键轻松建立站点，并通过简单的配置，将站点部署到GitHub平台上。本文系统为WIN7 32位，需要用到以下环境：</p>
+        <p>我们都知道Java文件经过编译后是一个二进制的class文件，但多数情况下我们更了解Java语法，它能帮助我们编写漂亮的代码，但知道Java更底层的东西我们就能写出更高效的代码。在研究findbugs工具时，由于其使用BCEL来处理class文件，这就要求我们对class文件的基本结构有一定的了解。这里纯粹是记录我在学习class文件结构的一些总结，要更系统深入的学习可以查看官方文档<a href="/(http://docs.oracle.com/javase/specs/jvms/se7/html/)">The Java Virtual Machine Specification</a>。</p>
 <blockquote>
-<ul>
-<li><a href="https://nodejs.org/en/" title="node.js" target="_blank" rel="external">Node.js</a>, 版本v5.4.1，Hexo基于该框架</li>
-<li><a href="http://git-scm.com/download/win" title="git" target="_blank" rel="external">Git for Windows</a>, 使用最新版即可</li>
-</ul>
+<p>1.class文件是由8个字节为基础的字节流构成的，这些字节流之间都严格按照规定的顺序排列，并且字节之间不存在任何空隙，对于超过8个字节的数据，将按照Big-Endian的顺序存储的。<br>2.class文件结构采用类似C语言的结构体来存储数据的，主要有两类数据项，无符号数和表，无符号数用来表述数字，索引引用以及字符串等，比如 u1,u2,u4,u8分别代表1个字节，2个字节，4个字节，8个字节的无符号数，而表是由多个无符号数以及其它的表组成的复合结构。</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="u73AF_u5883_u51C6_u5907"><a href="#u73AF_u5883_u51C6_u5907" class="headerlink" title="环境准备"></a>环境准备</h2><p>　　我们需要搭建Hexo环境，以及配置Git环境（向GitHub上部署博客站点时需要）</p>
-<h3 id="Hexo_u73AF_u5883_u642D_u5EFA"><a href="#Hexo_u73AF_u5883_u642D_u5EFA" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h3><p>　　Hexo框架是Node.js框架下的一个包，在windows上一键安装Node.js环境后，使用Node.js下的包管理工具npm即可一键安装Hexo框架，命令如下：</p>
+<p>如下面的class文件结构：<br><img src="/../img/cnblog/class_file.png" alt="class file"> –FROM JVM规范</p>
+<p><strong>magic</strong>值是一个常数0xCAFEBABE，可用它来识别一个文件是否为class文件。</p>
+<p><strong>minor_version，major_version</strong>两个值指定了这个class文件的主次版本号，JVM可以通过该值来判断是否支持该class文件。</p>
+<p><strong>constant_pool_count</strong>这个值等于常量池中常量数量加1，介于0和constant_pool_count之间的constant_pool索引都是合法的。需要加1的原因是，当某一数据项索引为0表示该数据项不引用任何常量池中的常量。</p>
+<p><strong>constant_pool[]</strong>用来存储字符常量、类或接口名、字段名、方法名以及其他可能涉及到的常量，常量池几乎占据了60%的class文件。常量用表来存储，结构如下：</p>
 <blockquote>
-<p>npm install -g hexo</p>
+<p>cp_info {<br>    u1 tag; //1字节的tag指明是哪类的Constant<br>    u1 info[]; //其他信息，但都是固定字节的<br>}</p>
 </blockquote>
-<p>　　在<a href="https://hexo.io/zh-cn/docs/" title="Hexo教程" target="_blank" rel="external">Hexo教程官网</a>上使用的命令是<code>npm install -g hexo-cli</code>，而本人在实际操作过程中使用该命令安装hexo-cli后，在创建站点（后续章节介绍）执行<code>npm install</code>命令时出现下图错误，改用<code>npm install -g hexo</code>安装完整Hexo后，则没有问题。<br><img src="/../img/hexo/npm_install_error.png" alt="&quot;建站报错&quot;"></p>
-<h3 id="Git_u73AF_u5883_u51C6_u5907"><a href="#Git_u73AF_u5883_u51C6_u5907" class="headerlink" title="Git环境准备"></a>Git环境准备</h3><p>　　在Git for Windows安装完成后，就具备了本地的git环境，我们需要做的是连接到我们的GitHub上，需要以下步骤：<br>1.创建GitHub账号（已有忽略本步骤）<br>2.在git bash窗口下，设置Git的account和email</p>
+<p>JVM共定义了以下14种常量，以及其对应的tag。<br><img src="/../img/cnblog/constant.png" alt="class file"> –FROM JVM规范</p>
+<p><strong>access_flags</strong>用于表示类或接口的访问信息public，private……，如图：<br><img src="/../img/cnblog/access_flags.png" alt="class file"> –FROM JVM规范</p>
+<p><strong>this_class</strong>一个合法索引值，且该值索引到一个CONSTANT_Class_info类型的常量，表示class文件定义的类或接口。</p>
+<p><strong>super_class</strong>表示当前类的父类的索引值，索引值所指向的常量池中类型为CONSTANT_Class_info的常量，若super_class的值为零，则该class文件一定是Object。</p>
+<p><strong>interfaces_count，interfaces[]</strong> interfaces_count表示实现接口数量，而每一个interfaces[i]分别对应一个常量池的常量，类型为CONSTANT_Class_info。</p>
+<p><strong>fields_count、fields[]</strong>fields_count表示类中field_info表的数量，而field_info表示类的实例变量和类</p>
+<p>变量，这里需要注意的是 field_info不包含从父类继承过来的字段，field_info的结构如下图所示：</p>
 <blockquote>
-<p>git config –global user.name “github account”<br>git config –global user.email “email used in github”</p>
+<p>field_info {<br>    u2             access_flags; //访问权限，不具体列出（private，public……）<br>    u2             name_index;  //一个CONSTANT_Utf8_info类型的常量，表示字段名称<br>    u2             descriptor_index;  //下面介绍<br>    u2             attributes_count;  //属性表的数量<br>    attribute_info attributes[attributes_count];  //后面介绍<br>}</p>
 </blockquote>
-<p>3.生成秘钥</p>
+<p>descriptor_index对应到常量池的一个CONSTANT_Utf8_info 类型常量，且字段描述符表示如下：</p>
 <blockquote>
-<p>ssh-keygen -t rsa -C “your email address”</p>
-</blockquote>
-<p>　　此步骤会有多个输入，连续回车即可。最后会在系统盘的用户目录下生成一个.ssh目录，里面包含id_rsa和id_rsa.pub两个文件。</p>
-<p>4.登入GitHub，add SSH key<br>　　在用户的设置里面，添加SSH key，将id_rsa.pub文件里面所有的内容都拷贝进去，title可以不用设置。<br><img src="/../img/hexo/add_ssh_key.png" alt="add ssh key"></p>
-<p>5.测试<br>　　使用<code>ssh -T git@github.com</code>测试是否连接成功。<br><img src="/../img/hexo/git_conn.png" alt="&quot;连接成功&quot;"></p>
-<p>　　自此，博客站点所需要的环境配置完成。</p>
-<h2 id="u7AD9_u70B9_u914D_u7F6E_u5E76_u90E8_u7F72_u5230GitHub"><a href="#u7AD9_u70B9_u914D_u7F6E_u5E76_u90E8_u7F72_u5230GitHub" class="headerlink" title="站点配置并部署到GitHub"></a>站点配置并部署到GitHub</h2><h3 id="u521B_u5EFA_u7AD9_u70B9"><a href="#u521B_u5EFA_u7AD9_u70B9" class="headerlink" title="创建站点"></a>创建站点</h3><p>　　使用几条Hexo框架命令即能完成，生成站点目录结构</p>
+<p>FieldDescriptor:</p>
 <blockquote>
-<ul>
-<li><code>hexo init &lt;folder&gt;</code></li>
-<li><code>cd &lt;folder&gt;</code></li>
-<li><code>npm install</code></li>
-</ul>
+<p>FieldType</p>
 </blockquote>
-<p>　　folder可有可无，若不填写，则将站点部署在当前目录下，第二条语句也不需要执行。<br><img src="/../img/hexo/site_structure.png" alt="&quot;目录结构&quot;"></p>
-<pre><code>node_modules: Hexo框架渲染页面等用到的一些包
-public：包含Hexo框架生成的静态页面
-scffolds：创建页面是用到的模板，默认有post、page、draft
-source：markdown文件等
-themes：站点主题目录
-_config.xml: 站点配置文件
-</code></pre><p>　　创建站点完成，依次用<code>hexo generate</code>命令生成静态页面，和用<code>hexo server</code>启动站点，即可在<code>localhost:4000</code>上看到Hexo默认的hello world页面。</p>
-<h3 id="u5E38_u7528_u914D_u7F6E"><a href="#u5E38_u7528_u914D_u7F6E" class="headerlink" title="常用配置"></a>常用配置</h3><p>　　一目了然的就不说了，介绍几个主要的，大多数配置使用默认即可</p>
-<ul>
-<li>permalink：文章的链接URL格式，默认如下2016/01/19/文章名，可自行修改</li>
-<li>new_post_name：采用<code>hexo new</code>新建一篇文章时markdown文件的命名格式</li>
-<li>theme: 采用的主题，对应到themes目录下的主题</li>
-<li>deploy: 部署站点，如到GitHub平台下的参数<ul>
-<li>type： git</li>
-<li>repository：GitHub下的库地址</li>
-<li>branch：分支名称</li>
-</ul>
-</li>
-</ul>
-<h3 id="u5C06_u7AD9_u70B9_u90E8_u7F72_u5230GitHub"><a href="#u5C06_u7AD9_u70B9_u90E8_u7F72_u5230GitHub" class="headerlink" title="将站点部署到GitHub"></a>将站点部署到GitHub</h3><p>1.在GitHub上创建一个新库，命名为：账号名.github.io<br>2.填写<code>deploy</code>下属性的值，如上，branch可填master分支<br>3.生成静态文件</p>
+<p>FieldType:</p>
 <blockquote>
-<p>hexo generate</p>
+<p>BaseType<br>ObjectType<br>ArrayType </p>
 </blockquote>
-<p>4.部署到GitHub</p>
+<p>BaseType:</p>
 <blockquote>
-<p>hexo deploy</p>
+<p>B byte  //byte a,描述符B<br>C char<br>D double<br>F float<br>I int<br>J long<br>S short<br>Z boolean</p>
 </blockquote>
-<h2 id="u8BBE_u7F6E_u8BC4_u8BBA"><a href="#u8BBE_u7F6E_u8BC4_u8BBA" class="headerlink" title="设置评论"></a>设置评论</h2><p>　　本人是先更换主题，然后在设置评论的，这里也只记录下自己的操作。</p>
-<h3 id="u4E3B_u9898_u66F4_u6362"><a href="#u4E3B_u9898_u66F4_u6362" class="headerlink" title="主题更换"></a>主题更换</h3><p>　　下载相应的主题到themes目录下，然后在<em>站点的配置文件下_config.xml</em>将<code>theme:</code>该为你的主题名字即可。</p>
-<h3 id="u5F00_u542F_u8BC4_u8BBA"><a href="#u5F00_u542F_u8BC4_u8BBA" class="headerlink" title="开启评论"></a>开启评论</h3><p>　　以多说评论为例，本人使用的<a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" rel="external">yelee</a>已经将必要的代码都放到了主要文件里，引入评论模块的代码在article.ejs下，评论模块代码则放置在comments文件加下。</p>
+<p>ObjectType:</p>
 <blockquote>
-<ul>
-<li>到<a href="http://duoshuo.com/create-site/" target="_blank" rel="external">http://duoshuo.com/create-site/</a>上注册</li>
-<li>开启多说评论模块，填写域名<br><img src="/../img/hexo/duo_shuo.png" alt="&quot;多说设置&quot;"></li>
-</ul>
+<p>L ClassName ;  //String str,描述符Ljava/lang/String;</p>
 </blockquote>
-<p><em>参考资料：</em><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">Hexo中文文档</a>, <a href="http://segmentfault.com/a/1190000002645623" target="_blank" rel="external">git-ssh 配置和使用</a>, <a href="http://moxfive.xyz/2016/01/02/hexo-comments/" target="_blank" rel="external">为 Hexo 主题添加评论模块</a></p>
+<p>ArrayType:</p>
+<blockquote>
+<p>[ ComponentType //一位数组表示，二维则[[。 double[][]，描述符[[D</p>
+</blockquote>
+<p>ComponentType:</p>
+<blockquote>
+<p>FieldType</p>
+</blockquote>
+</blockquote>
+<p><strong>methods_count、methods[]</strong>methods_count表示方法表的个数，方法表结构如下所示：</p>
+<blockquote>
+<p>method_info {<br>    u2             access_flags; //访问标示，不具体列出（private，public……）<br>    u2             name_index;  //方法名称，对应到常量池<br>    u2             descriptor_index; //下面介绍<br>    u2             attributes_count; //属性表数量<br>    attribute_info attributes[attributes_count];  //后面介绍<br>}</p>
+</blockquote>
+<p>MethodDescriptor的表示如下：</p>
+<blockquote>
+<p>MethodDescriptor:<br>( ParameterDescriptor* ) ReturnDescriptor</p>
+<p>ParameterDescriptor:</p>
+<blockquote>
+<p>FieldType</p>
+</blockquote>
+<p>ReturnDescriptor:</p>
+<blockquote>
+<p>FieldType<br>VoidDescriptor</p>
+</blockquote>
+<p>VoidDescriptor:</p>
+<blockquote>
+<p>V</p>
+</blockquote>
+</blockquote>
+<p>如Object m(int i, double d, Thread t) {..}方法的描述符为：(IDLjava/lang/Thread;)Ljava/lang/Object;。</p>
+<p><strong>attributes_count，attributes[]</strong>attributes_count表示属性表的数量。字段、方法和类文件都有attribute_info这种表，但表的类型是不相同的，表结构如下：</p>
+<blockquote>
+<p>attribute_info {<br>    u2 attribute_name_index;<br>    u4 attribute_length;<br>    u1 info[attribute_length];<br>}</p>
+</blockquote>
+<p>下面表格为JVM预定义的属性类型：<br><img src="/../img/cnblog/attribute.png" alt="attribute"></p>
+<p>以上大致为class文件包含的所有内容，类中大部分信息都存储在常量池（编译后的指令在方法的code属性中）。深入的学习JVM推荐阅读<a href="http://docs.oracle.com/javase/specs/jvms/se7/html/" target="_blank" rel="external">The Java Virtual Machine Specification</a>，文章<a href="http://www.jb51.net/article/35187.htm" target="_blank" rel="external">《实例分析Java Class的文件结构》</a>以实例对class文件进行了讲解。</p>
 
       
     </div>
@@ -330,13 +334,13 @@ _config.xml: 站点配置文件
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/20160119/使用hexo及github搭建个人博客记录/">使用Hexo及GitHub搭建个人博客记录</a></p>
+        <p><span>本文标题:</span><a href="/20150514/了解Java-Class文件结构/">了解Java Class文件结构</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Spanda 的个人博客">Spanda</a></p>
-        <p><span>发布时间:</span>2016年01月19日 - 23时45分</p>
-        <p><span>最后更新:</span>2016年01月21日 - 14时38分</p>
+        <p><span>发布时间:</span>2015年05月14日 - 01时58分</p>
+        <p><span>最后更新:</span>2016年01月22日 - 02时35分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/20160119/使用hexo及github搭建个人博客记录/" title="使用Hexo及GitHub搭建个人博客记录">http://panzhihui.github.io/20160119/使用hexo及github搭建个人博客记录/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20160119/使用hexo及github搭建个人博客记录/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/20150514/了解Java-Class文件结构/" title="了解Java Class文件结构">http://panzhihui.github.io/20150514/了解Java-Class文件结构/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20150514/了解Java-Class文件结构/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -349,10 +353,16 @@ _config.xml: 站点配置文件
 
     <nav id="article-nav">
         
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/20160119/使用hexo及github搭建个人博客记录/">
+                    使用Hexo及GitHub搭建个人博客记录
+                </a>
+            </div>
+        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/20150514/了解Java-Class文件结构/">
-                    了解Java Class文件结构
+                <a href="/20150511/从定义最简单Findbugs-Detector做起/">
+                    从定义最简单Findbugs Detector做起
                 </a>
             </div>
         
@@ -363,7 +373,7 @@ _config.xml: 站点配置文件
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u73AF_u5883_u51C6_u5907"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo_u73AF_u5883_u642D_u5EFA"><span class="toc-number">1.1.</span> <span class="toc-text">Hexo环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Git_u73AF_u5883_u51C6_u5907"><span class="toc-number">1.2.</span> <span class="toc-text">Git环境准备</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7AD9_u70B9_u914D_u7F6E_u5E76_u90E8_u7F72_u5230GitHub"><span class="toc-number">2.</span> <span class="toc-text">站点配置并部署到GitHub</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u521B_u5EFA_u7AD9_u70B9"><span class="toc-number">2.1.</span> <span class="toc-text">创建站点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5E38_u7528_u914D_u7F6E"><span class="toc-number">2.2.</span> <span class="toc-text">常用配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5C06_u7AD9_u70B9_u90E8_u7F72_u5230GitHub"><span class="toc-number">2.3.</span> <span class="toc-text">将站点部署到GitHub</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u8BBE_u7F6E_u8BC4_u8BBA"><span class="toc-number">3.</span> <span class="toc-text">设置评论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E3B_u9898_u66F4_u6362"><span class="toc-number">3.1.</span> <span class="toc-text">主题更换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5F00_u542F_u8BC4_u8BBA"><span class="toc-number">3.2.</span> <span class="toc-text">开启评论</span></a></li></ol></li></ol>
+    
 </div>
 <style>
     .left-col .switch-btn {
@@ -427,7 +437,7 @@ _config.xml: 站点配置文件
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="20160119/使用hexo及github搭建个人博客记录/" data-title="使用Hexo及GitHub搭建个人博客记录" data-url="http://panzhihui.github.io/20160119/使用hexo及github搭建个人博客记录/"></div>
+    <div class="ds-thread" data-thread-key="20150514/了解Java-Class文件结构/" data-title="了解Java Class文件结构" data-url="http://panzhihui.github.io/20150514/了解Java-Class文件结构/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -451,13 +461,15 @@ _config.xml: 站点配置文件
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/20160119/使用hexo及github搭建个人博客记录/" title="上一篇: 使用Hexo及GitHub搭建个人博客记录">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/20150514/了解Java-Class文件结构/" title="下一篇: 了解Java Class文件结构">
+            <a href="/20150511/从定义最简单Findbugs-Detector做起/" title="下一篇: 从定义最简单Findbugs Detector做起">
                 <i class="fa fa-angle-right"></i>
             </a>
         

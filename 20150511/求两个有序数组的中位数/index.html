@@ -3,23 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>使用Hexo及GitHub搭建个人博客记录 | Spanda&#39;s blog</title>
+  <title>求两个有序数组的中位数 | Spanda&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录本人使用Hexo框架在GitHub平台上搭建个人博客的过程。Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。GitHub是一个利用Git进行版本控制、专门用于存放软件代码与内容的共享虚拟主机服务。Hexo在本地可以一键轻松建立站点，并通过简单的配置，将站点部署到GitHub平台上。本文系统为WIN">
+  <meta name="description" content="原文，本文给出java实现
+设数组A的长度为m, 数组B的长度为n， 两个数组都都是递增有序的。
+求这两个数组的中位数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Hexo及GitHub搭建个人博客记录">
-<meta property="og:url" content="http://panzhihui.github.io/20160119/使用hexo及github搭建个人博客记录/index.html">
+<meta property="og:title" content="求两个有序数组的中位数">
+<meta property="og:url" content="http://panzhihui.github.io/20150511/求两个有序数组的中位数/index.html">
 <meta property="og:site_name" content="Spanda's blog">
-<meta property="og:description" content="记录本人使用Hexo框架在GitHub平台上搭建个人博客的过程。Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。GitHub是一个利用Git进行版本控制、专门用于存放软件代码与内容的共享虚拟主机服务。Hexo在本地可以一键轻松建立站点，并通过简单的配置，将站点部署到GitHub平台上。本文系统为WIN">
-<meta property="og:image" content="http://panzhihui.github.io/../img/hexo/npm_install_error.png">
-<meta property="og:image" content="http://panzhihui.github.io/../img/hexo/add_ssh_key.png">
-<meta property="og:image" content="http://panzhihui.github.io/../img/hexo/git_conn.png">
-<meta property="og:image" content="http://panzhihui.github.io/../img/hexo/site_structure.png">
-<meta property="og:image" content="http://panzhihui.github.io/../img/hexo/duo_shuo.png">
-<meta property="og:updated_time" content="2016-01-21T06:38:49.182Z">
+<meta property="og:description" content="原文，本文给出java实现
+设数组A的长度为m, 数组B的长度为n， 两个数组都都是递增有序的。
+求这两个数组的中位数">
+<meta property="og:image" content="http://panzhihui.github.io/../img/cnblog/mid.gif">
+<meta property="og:updated_time" content="2016-01-21T17:48:21.783Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用Hexo及GitHub搭建个人博客记录">
-<meta name="twitter:description" content="记录本人使用Hexo框架在GitHub平台上搭建个人博客的过程。Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。GitHub是一个利用Git进行版本控制、专门用于存放软件代码与内容的共享虚拟主机服务。Hexo在本地可以一键轻松建立站点，并通过简单的配置，将站点部署到GitHub平台上。本文系统为WIN">
+<meta name="twitter:title" content="求两个有序数组的中位数">
+<meta name="twitter:description" content="原文，本文给出java实现
+设数组A的长度为m, 数组B的长度为n， 两个数组都都是递增有序的。
+求这两个数组的中位数">
   
     <link rel="alternative" href="/atom.xml" title="Spanda&#39;s blog" type="application/atom+xml">
   
@@ -208,11 +210,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-使用hexo及github搭建个人博客记录" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-求两个有序数组的中位数" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/20160119/使用hexo及github搭建个人博客记录/" class="article-date">
-      <time datetime="2016-01-19T15:45:54.000Z" itemprop="datePublished">2016-01-19</time>
+      <a href="/20150511/求两个有序数组的中位数/" class="article-date">
+      <time datetime="2015-05-10T17:25:32.000Z" itemprop="datePublished">2015-05-11</time>
 </a>
     </div>
   
@@ -225,7 +227,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      使用Hexo及GitHub搭建个人博客记录
+      求两个有序数组的中位数
     </h1>
   
 
@@ -234,13 +236,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/实践笔记/">实践笔记</a>
+    <a class="article-category-link" href="/categories/笔试题/">笔试题</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔试题/">笔试题</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -250,79 +252,25 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　　记录本人使用Hexo框架在GitHub平台上搭建个人博客的过程。<a href="https://hexo.io/zh-cn/docs/index.html" title="hexo" target="_blank" rel="external">Hexo</a> 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<a href="https://github.com/" title="github" target="_blank" rel="external">GitHub</a>是一个利用Git进行版本控制、专门用于存放软件代码与内容的共享虚拟主机服务。Hexo在本地可以一键轻松建立站点，并通过简单的配置，将站点部署到GitHub平台上。本文系统为WIN7 32位，需要用到以下环境：</p>
-<blockquote>
-<ul>
-<li><a href="https://nodejs.org/en/" title="node.js" target="_blank" rel="external">Node.js</a>, 版本v5.4.1，Hexo基于该框架</li>
-<li><a href="http://git-scm.com/download/win" title="git" target="_blank" rel="external">Git for Windows</a>, 使用最新版即可</li>
-</ul>
-</blockquote>
+        <p><a href="http://blog.csdn.net/kenby/article/details/6833407" target="_blank" rel="external">原文</a>，本文给出java实现</p>
+<p>设数组A的长度为m, 数组B的长度为n， 两个数组都都是递增有序的。</p>
+<p>求这两个数组的中位数</p>
 <a id="more"></a>
-<h2 id="u73AF_u5883_u51C6_u5907"><a href="#u73AF_u5883_u51C6_u5907" class="headerlink" title="环境准备"></a>环境准备</h2><p>　　我们需要搭建Hexo环境，以及配置Git环境（向GitHub上部署博客站点时需要）</p>
-<h3 id="Hexo_u73AF_u5883_u642D_u5EFA"><a href="#Hexo_u73AF_u5883_u642D_u5EFA" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h3><p>　　Hexo框架是Node.js框架下的一个包，在windows上一键安装Node.js环境后，使用Node.js下的包管理工具npm即可一键安装Hexo框架，命令如下：</p>
-<blockquote>
-<p>npm install -g hexo</p>
-</blockquote>
-<p>　　在<a href="https://hexo.io/zh-cn/docs/" title="Hexo教程" target="_blank" rel="external">Hexo教程官网</a>上使用的命令是<code>npm install -g hexo-cli</code>，而本人在实际操作过程中使用该命令安装hexo-cli后，在创建站点（后续章节介绍）执行<code>npm install</code>命令时出现下图错误，改用<code>npm install -g hexo</code>安装完整Hexo后，则没有问题。<br><img src="/../img/hexo/npm_install_error.png" alt="&quot;建站报错&quot;"></p>
-<h3 id="Git_u73AF_u5883_u51C6_u5907"><a href="#Git_u73AF_u5883_u51C6_u5907" class="headerlink" title="Git环境准备"></a>Git环境准备</h3><p>　　在Git for Windows安装完成后，就具备了本地的git环境，我们需要做的是连接到我们的GitHub上，需要以下步骤：<br>1.创建GitHub账号（已有忽略本步骤）<br>2.在git bash窗口下，设置Git的account和email</p>
-<blockquote>
-<p>git config –global user.name “github account”<br>git config –global user.email “email used in github”</p>
-</blockquote>
-<p>3.生成秘钥</p>
-<blockquote>
-<p>ssh-keygen -t rsa -C “your email address”</p>
-</blockquote>
-<p>　　此步骤会有多个输入，连续回车即可。最后会在系统盘的用户目录下生成一个.ssh目录，里面包含id_rsa和id_rsa.pub两个文件。</p>
-<p>4.登入GitHub，add SSH key<br>　　在用户的设置里面，添加SSH key，将id_rsa.pub文件里面所有的内容都拷贝进去，title可以不用设置。<br><img src="/../img/hexo/add_ssh_key.png" alt="add ssh key"></p>
-<p>5.测试<br>　　使用<code>ssh -T git@github.com</code>测试是否连接成功。<br><img src="/../img/hexo/git_conn.png" alt="&quot;连接成功&quot;"></p>
-<p>　　自此，博客站点所需要的环境配置完成。</p>
-<h2 id="u7AD9_u70B9_u914D_u7F6E_u5E76_u90E8_u7F72_u5230GitHub"><a href="#u7AD9_u70B9_u914D_u7F6E_u5E76_u90E8_u7F72_u5230GitHub" class="headerlink" title="站点配置并部署到GitHub"></a>站点配置并部署到GitHub</h2><h3 id="u521B_u5EFA_u7AD9_u70B9"><a href="#u521B_u5EFA_u7AD9_u70B9" class="headerlink" title="创建站点"></a>创建站点</h3><p>　　使用几条Hexo框架命令即能完成，生成站点目录结构</p>
-<blockquote>
-<ul>
-<li><code>hexo init &lt;folder&gt;</code></li>
-<li><code>cd &lt;folder&gt;</code></li>
-<li><code>npm install</code></li>
-</ul>
-</blockquote>
-<p>　　folder可有可无，若不填写，则将站点部署在当前目录下，第二条语句也不需要执行。<br><img src="/../img/hexo/site_structure.png" alt="&quot;目录结构&quot;"></p>
-<pre><code>node_modules: Hexo框架渲染页面等用到的一些包
-public：包含Hexo框架生成的静态页面
-scffolds：创建页面是用到的模板，默认有post、page、draft
-source：markdown文件等
-themes：站点主题目录
-_config.xml: 站点配置文件
-</code></pre><p>　　创建站点完成，依次用<code>hexo generate</code>命令生成静态页面，和用<code>hexo server</code>启动站点，即可在<code>localhost:4000</code>上看到Hexo默认的hello world页面。</p>
-<h3 id="u5E38_u7528_u914D_u7F6E"><a href="#u5E38_u7528_u914D_u7F6E" class="headerlink" title="常用配置"></a>常用配置</h3><p>　　一目了然的就不说了，介绍几个主要的，大多数配置使用默认即可</p>
-<ul>
-<li>permalink：文章的链接URL格式，默认如下2016/01/19/文章名，可自行修改</li>
-<li>new_post_name：采用<code>hexo new</code>新建一篇文章时markdown文件的命名格式</li>
-<li>theme: 采用的主题，对应到themes目录下的主题</li>
-<li>deploy: 部署站点，如到GitHub平台下的参数<ul>
-<li>type： git</li>
-<li>repository：GitHub下的库地址</li>
-<li>branch：分支名称</li>
-</ul>
-</li>
-</ul>
-<h3 id="u5C06_u7AD9_u70B9_u90E8_u7F72_u5230GitHub"><a href="#u5C06_u7AD9_u70B9_u90E8_u7F72_u5230GitHub" class="headerlink" title="将站点部署到GitHub"></a>将站点部署到GitHub</h3><p>1.在GitHub上创建一个新库，命名为：账号名.github.io<br>2.填写<code>deploy</code>下属性的值，如上，branch可填master分支<br>3.生成静态文件</p>
-<blockquote>
-<p>hexo generate</p>
-</blockquote>
-<p>4.部署到GitHub</p>
-<blockquote>
-<p>hexo deploy</p>
-</blockquote>
-<h2 id="u8BBE_u7F6E_u8BC4_u8BBA"><a href="#u8BBE_u7F6E_u8BC4_u8BBA" class="headerlink" title="设置评论"></a>设置评论</h2><p>　　本人是先更换主题，然后在设置评论的，这里也只记录下自己的操作。</p>
-<h3 id="u4E3B_u9898_u66F4_u6362"><a href="#u4E3B_u9898_u66F4_u6362" class="headerlink" title="主题更换"></a>主题更换</h3><p>　　下载相应的主题到themes目录下，然后在<em>站点的配置文件下_config.xml</em>将<code>theme:</code>该为你的主题名字即可。</p>
-<h3 id="u5F00_u542F_u8BC4_u8BBA"><a href="#u5F00_u542F_u8BC4_u8BBA" class="headerlink" title="开启评论"></a>开启评论</h3><p>　　以多说评论为例，本人使用的<a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" rel="external">yelee</a>已经将必要的代码都放到了主要文件里，引入评论模块的代码在article.ejs下，评论模块代码则放置在comments文件加下。</p>
-<blockquote>
-<ul>
-<li>到<a href="http://duoshuo.com/create-site/" target="_blank" rel="external">http://duoshuo.com/create-site/</a>上注册</li>
-<li>开启多说评论模块，填写域名<br><img src="/../img/hexo/duo_shuo.png" alt="&quot;多说设置&quot;"></li>
-</ul>
-</blockquote>
-<p><em>参考资料：</em><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">Hexo中文文档</a>, <a href="http://segmentfault.com/a/1190000002645623" target="_blank" rel="external">git-ssh 配置和使用</a>, <a href="http://moxfive.xyz/2016/01/02/hexo-comments/" target="_blank" rel="external">为 Hexo 主题添加评论模块</a></p>
-
+<p>首先我们看看中位数的特点，一个大小为n的数组，</p>
+<p>如果n是奇数，则中位数只有一个，数组中恰好有  (n-1)/2 个元素比中位数小。</p>
+<p>如果n是偶数，则中位数有两个（下中位数和上中位数），这里我们只求下中位数，对于下中位数，</p>
+<p>数组中恰好有(n-1)/2个元素比下中位数小。</p>
+<p>此题中，中位数只有一个，它前面有 c = (m+n-1)/2 个数比它小。中位数要么出现在数组A中，</p>
+<p>要么出现在数组B中，我们先从数组A开始找。考察数组A中的一个元素A[p]， 在数组A中，</p>
+<p>有 p 个数比A[p]小，如果数组B中恰好有 c-p 个数比 A[p] 小， 则俩数组合并后就恰好有 c 个数比A[p]小，</p>
+<p>于是A[p]就是要找的中位数。 如下图所示：</p>
+<p><img src="/../img/cnblog/mid.gif" alt="&quot;中位数&quot;"></p>
+<p>如果A[p] 恰好位于 B[c-p-1] 和 B[c-p] 之间，则 A[p] 是中位数</p>
+<p>如果A[p] 小于 B[c-p-1] ，说明A[p] 太小了，接下来从 A[p+1] ~A[m-1]开始找</p>
+<p>如果A[p] 大于 B[c-p] ，说明A[p] 太大了，接下来从 A[0] ~A[p-1]开始找。</p>
+<p>如果数组A没找到，就从数组B找。</p>
+<p>下面给出Java实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FindMedian</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> args</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        <span class="keyword">int</span>[] a = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>, <span class="number">13</span>, <span class="number">15</span>, <span class="number">19</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span>[] b = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">13</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">19</span>&#125;;</span><br><span class="line">        </span><br><span class="line">        System.out.print(findMedian(a, b, a.length, b.length, <span class="number">0</span>, a.length-<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 若m+n为奇数，放回中位数；偶数放回下中位数</span><br><span class="line">     * <span class="doctag">@param</span> a</span><br><span class="line">     * <span class="doctag">@param</span> b</span><br><span class="line">     * <span class="doctag">@param</span> m 数组a长度</span><br><span class="line">     * <span class="doctag">@param</span> n 数组b长度</span><br><span class="line">     * <span class="doctag">@param</span> s p的上下界线</span><br><span class="line">     * <span class="doctag">@param</span> t</span><br><span class="line">     * <span class="doctag">@return</span> 中位数</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">findMedian</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span>[] b, <span class="keyword">int</span> m, <span class="keyword">int</span> n, <span class="keyword">int</span> s, <span class="keyword">int</span> t)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> c = (m+n-<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> p = (s+t)/<span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(s&gt;t) <span class="keyword">return</span> findMedian(b, a, n, m, <span class="number">0</span>, n-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(a[p]&gt;=b[c-p-<span class="number">1</span>] &amp;&amp; a[p]&lt;=b[c-p]) <span class="keyword">return</span> a[p];  <span class="comment">//介于c-p-1,c-p之间则a[p]恰为中位数</span></span><br><span class="line">        <span class="keyword">if</span>(a[p]&lt;b[c-p-<span class="number">1</span>]) <span class="keyword">return</span> findMedian(a, b, m, n, p+<span class="number">1</span>, t);</span><br><span class="line">        <span class="keyword">return</span> findMedian(a, b, m, n, s, p-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -330,13 +278,13 @@ _config.xml: 站点配置文件
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/20160119/使用hexo及github搭建个人博客记录/">使用Hexo及GitHub搭建个人博客记录</a></p>
+        <p><span>本文标题:</span><a href="/20150511/求两个有序数组的中位数/">求两个有序数组的中位数</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Spanda 的个人博客">Spanda</a></p>
-        <p><span>发布时间:</span>2016年01月19日 - 23时45分</p>
-        <p><span>最后更新:</span>2016年01月21日 - 14时38分</p>
+        <p><span>发布时间:</span>2015年05月11日 - 01时25分</p>
+        <p><span>最后更新:</span>2016年01月22日 - 01时48分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/20160119/使用hexo及github搭建个人博客记录/" title="使用Hexo及GitHub搭建个人博客记录">http://panzhihui.github.io/20160119/使用hexo及github搭建个人博客记录/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20160119/使用hexo及github搭建个人博客记录/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/20150511/求两个有序数组的中位数/" title="求两个有序数组的中位数">http://panzhihui.github.io/20150511/求两个有序数组的中位数/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20150511/求两个有序数组的中位数/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -349,10 +297,16 @@ _config.xml: 站点配置文件
 
     <nav id="article-nav">
         
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/20150511/从定义最简单Findbugs-Detector做起/">
+                    从定义最简单Findbugs Detector做起
+                </a>
+            </div>
+        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/20150514/了解Java-Class文件结构/">
-                    了解Java Class文件结构
+                <a href="/20150510/输入16进制数序列，将其二进制反序并输出新的16进制数/">
+                    输入16进制数序列，将其二进制反序并输出新的16进制数
                 </a>
             </div>
         
@@ -363,7 +317,7 @@ _config.xml: 站点配置文件
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u73AF_u5883_u51C6_u5907"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo_u73AF_u5883_u642D_u5EFA"><span class="toc-number">1.1.</span> <span class="toc-text">Hexo环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Git_u73AF_u5883_u51C6_u5907"><span class="toc-number">1.2.</span> <span class="toc-text">Git环境准备</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7AD9_u70B9_u914D_u7F6E_u5E76_u90E8_u7F72_u5230GitHub"><span class="toc-number">2.</span> <span class="toc-text">站点配置并部署到GitHub</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u521B_u5EFA_u7AD9_u70B9"><span class="toc-number">2.1.</span> <span class="toc-text">创建站点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5E38_u7528_u914D_u7F6E"><span class="toc-number">2.2.</span> <span class="toc-text">常用配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5C06_u7AD9_u70B9_u90E8_u7F72_u5230GitHub"><span class="toc-number">2.3.</span> <span class="toc-text">将站点部署到GitHub</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u8BBE_u7F6E_u8BC4_u8BBA"><span class="toc-number">3.</span> <span class="toc-text">设置评论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E3B_u9898_u66F4_u6362"><span class="toc-number">3.1.</span> <span class="toc-text">主题更换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5F00_u542F_u8BC4_u8BBA"><span class="toc-number">3.2.</span> <span class="toc-text">开启评论</span></a></li></ol></li></ol>
+    
 </div>
 <style>
     .left-col .switch-btn {
@@ -427,7 +381,7 @@ _config.xml: 站点配置文件
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="20160119/使用hexo及github搭建个人博客记录/" data-title="使用Hexo及GitHub搭建个人博客记录" data-url="http://panzhihui.github.io/20160119/使用hexo及github搭建个人博客记录/"></div>
+    <div class="ds-thread" data-thread-key="20150511/求两个有序数组的中位数/" data-title="求两个有序数组的中位数" data-url="http://panzhihui.github.io/20150511/求两个有序数组的中位数/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -451,13 +405,15 @@ _config.xml: 站点配置文件
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/20150511/从定义最简单Findbugs-Detector做起/" title="上一篇: 从定义最简单Findbugs Detector做起">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/20150514/了解Java-Class文件结构/" title="下一篇: 了解Java Class文件结构">
+            <a href="/20150510/输入16进制数序列，将其二进制反序并输出新的16进制数/" title="下一篇: 输入16进制数序列，将其二进制反序并输出新的16进制数">
                 <i class="fa fa-angle-right"></i>
             </a>
         

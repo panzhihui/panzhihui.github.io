@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>从定义最简单Findbugs Detector做起 | Spanda&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="创建Eclipse项目在eclipse中新建一个Java项目，使用jdk 1.7，从版本3.0开始Findbugs要求Java 7。项目名称符合Java项目名即可，这里以FB Plugin为例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从定义最简单Findbugs Detector做起">
+<meta property="og:url" content="http://panzhihui.github.io/20150511/从定义最简单Findbugs-Detector做起/index.html">
+<meta property="og:site_name" content="Spanda's blog">
+<meta property="og:description" content="创建Eclipse项目在eclipse中新建一个Java项目，使用jdk 1.7，从版本3.0开始Findbugs要求Java 7。项目名称符合Java项目名即可，这里以FB Plugin为例。">
+<meta property="og:image" content="http://panzhihui.github.io/../img/findbugs/new_project.png">
+<meta property="og:image" content="http://panzhihui.github.io/../img/findbugs/dependancy.jpg">
+<meta property="og:image" content="http://panzhihui.github.io/../img/findbugs/build_jar.png">
+<meta property="og:updated_time" content="2016-01-21T18:26:00.382Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从定义最简单Findbugs Detector做起">
+<meta name="twitter:description" content="创建Eclipse项目在eclipse中新建一个Java项目，使用jdk 1.7，从版本3.0开始Findbugs要求Java 7。项目名称符合Java项目名即可，这里以FB Plugin为例。">
+  
+    <link rel="alternative" href="/atom.xml" title="Spanda&#39;s blog" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Spanda</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">路漫漫其修远兮 吾将上下而求索</p>
+        
+        
+        <form><input type="text" class="search" placeholder=" Search..."></form>
+                
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <li id="Email"><a class="Email" target="_blank" href="/695783783@qq.com" title="Email"></a></li>
+                            
+                                <li id="新浪微博"><a class="新浪微博" target="_blank" href="http://weibo.com/u/2938500313" title="新浪微博"></a></li>
+                            
+                                <li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/panzhihui" title="GitHub"></a></li>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/findbugs/" style="font-size: 10px;">findbugs</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 15px;">笔试题</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://chenmin.club">Dreammin</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Spanda</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img lazy-src="/img/avatar.jpg" class="js-avatar">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Spanda</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">路漫漫其修远兮 吾将上下而求索</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <li id="Email"><a class="Email" target="_blank" href="/695783783@qq.com" title="Email"></a></li>
+                            
+                                <li id="新浪微博"><a class="新浪微博" target="_blank" href="http://weibo.com/u/2938500313" title="新浪微博"></a></li>
+                            
+                                <li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/panzhihui" title="GitHub"></a></li>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-从定义最简单Findbugs-Detector做起" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20150511/从定义最简单Findbugs-Detector做起/" class="article-date">
+      <time datetime="2015-05-10T17:40:55.000Z" itemprop="datePublished">2015-05-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      从定义最简单Findbugs Detector做起
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/学习总结/">学习总结</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/findbugs/">findbugs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/plugin/">plugin</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="u521B_u5EFAEclipse_u9879_u76EE"><a href="#u521B_u5EFAEclipse_u9879_u76EE" class="headerlink" title="创建Eclipse项目"></a>创建Eclipse项目</h3><p>在eclipse中新建一个Java项目，使用jdk 1.7，从版本3.0开始Findbugs要求Java 7。项目名称符合Java项目名即可，这里以FB Plugin为例。<br><img src="/../img/findbugs/new_project.png" alt="new project"></p>
+<a id="more"></a>
+<h3 id="u8BBE_u7F6ECLASSPATH"><a href="#u8BBE_u7F6ECLASSPATH" class="headerlink" title="设置CLASSPATH"></a>设置CLASSPATH</h3><p>为了开发一个detector，我们需要对FindBugs的detector进行扩展，这里要使用到FindBugs的一些jar包。下载最新版本的FindBugs，在lib目录下找到findbugs.jar, bcel.jar，并将其添加到项目FB Plugin 的Build Path中。<br><img src="/../img/findbugs/dependancy.jpg" alt="new project"></p>
+<h3 id="u7F16_u5199BUG_Detector"><a href="#u7F16_u5199BUG_Detector" class="headerlink" title="编写BUG Detector"></a>编写BUG Detector</h3><p>这里介绍一个FindBugs的例子（DMI_BIGDECIMAL_CONSTRUCTED_FROM_DOUBLE），用来检测BigDecimal实例使用Double进行构造。</p>
+<blockquote>
+<p>BigDecimal a = new BigDecimal(0.1);</p>
+</blockquote>
+<p>实际a值为：0.1000000000000000055511151231257827021181583404541015625。</p>
+<p>具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cqu.edu.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.math.BigDecimal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> edu.umd.cs.findbugs.BugInstance;</span><br><span class="line"><span class="keyword">import</span> edu.umd.cs.findbugs.BugReporter;</span><br><span class="line"><span class="keyword">import</span> edu.umd.cs.findbugs.OpcodeStack;</span><br><span class="line"><span class="keyword">import</span> edu.umd.cs.findbugs.bcel.OpcodeStackDetector;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DetectorTutorial</span> <span class="keyword">extends</span> <span class="title">OpcodeStackDetector</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> BugReporter bugReporter;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DetectorTutorial</span><span class="params">(BugReporter bugReporter)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.bugReporter = bugReporter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sawOpcode</span><span class="params">(<span class="keyword">int</span> seen)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        <span class="keyword">if</span> (seen == INVOKESPECIAL &amp;&amp; getClassConstantOperand().equals(<span class="string">"java/math/BigDecimal"</span>)</span><br><span class="line">                &amp;&amp; getNameConstantOperand().equals(<span class="string">"&lt;init&gt;"</span>) &amp;&amp; getSigConstantOperand().equals(<span class="string">"(D)V"</span>)) &#123;</span><br><span class="line">            OpcodeStack.Item top = stack.getStackItem(<span class="number">0</span>);</span><br><span class="line">            Object value = top.getConstant();</span><br><span class="line">            <span class="keyword">if</span> (value <span class="keyword">instanceof</span> Double) &#123;</span><br><span class="line">                <span class="keyword">double</span> arg = ((Double) value).doubleValue();</span><br><span class="line">                String dblString = Double.toString(arg);</span><br><span class="line">                String bigDecimalString = <span class="keyword">new</span> BigDecimal(arg).toString();</span><br><span class="line">                <span class="keyword">boolean</span> ok = dblString.equals(bigDecimalString) || dblString.equals(bigDecimalString + <span class="string">".0"</span>);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!ok) &#123;</span><br><span class="line">                    <span class="keyword">boolean</span> scary = dblString.length() &lt;= <span class="number">8</span> &amp;&amp; dblString.toUpperCase().indexOf(<span class="string">"E"</span>) == -<span class="number">1</span>;</span><br><span class="line">                    bugReporter.reportBug(<span class="keyword">new</span> BugInstance(<span class="keyword">this</span>, <span class="string">"TUTORIAL_BUG"</span>, scary ? NORMAL_PRIORITY : LOW_PRIORITY)</span><br><span class="line">                            .addClassAndMethod(<span class="keyword">this</span>).addString(dblString).addSourceLine(<span class="keyword">this</span>));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u90E8_u7F72_u548C_u6D4B_u8BD5"><a href="#u90E8_u7F72_u548C_u6D4B_u8BD5" class="headerlink" title="部署和测试"></a>部署和测试</h3><p>FindBugs的插件是一个jar包，但至少需要包含findbugs.xml两个messages.xml文件，将这两个文件置于FB Plugin项目的根目录下。</p>
+<p>findbugs.xml告诉告诉FindBugs你的插件的内容，及如何加载它：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">FindbugsPlugin</span> <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">        <span class="attribute">xsi:noNamespaceSchemaLocation</span>=<span class="value">"findbugsplugin.xsd"</span> </span><br><span class="line">        <span class="attribute">pluginid</span>=<span class="value">"com.cqu.edu.test.pluginTest"</span></span><br><span class="line">        <span class="attribute">provider</span>=<span class="value">"FindBugs Test"</span> </span><br><span class="line">        <span class="attribute">website</span>=<span class="value">"http://findbugs.sourceforge.net"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="title">Detector</span> <span class="attribute">class</span>=<span class="value">"com.cqu.edu.test.DetectorTutorial"</span> <span class="attribute">reports</span>=<span class="value">"TUTORIAL_BUG"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">BugPattern</span> <span class="attribute">type</span>=<span class="value">"TUTORIAL_BUG"</span> <span class="attribute">abbrev</span>=<span class="value">"TU"</span> <span class="attribute">category</span>=<span class="value">"CORRECTNESS"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">FindbugsPlugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>messages.xml包括了该插件的英文描述，和其报告的bug pattern：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">MessageCollection</span> <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">        <span class="attribute">xsi:noNamespaceSchemaLocation</span>=<span class="value">"messagecollection.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="title">Plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">ShortDescription</span>&gt;</span>FindBugs Plugin Tutorial Plugin<span class="tag">&lt;/<span class="title">ShortDescription</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">Details</span>&gt;</span>Provides detectors as part of the FindBugs detector plugin tutorial.<span class="tag">&lt;/<span class="title">Details</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">Plugin</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="title">Detector</span> <span class="attribute">class</span>=<span class="value">"com.cqu.edu.test.DetectorTutorial"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">Details</span>&gt;</span></span><br><span class="line">                        Finds instances of BigDecimals being created</span><br><span class="line">                        with doubles.</span><br><span class="line">                <span class="tag">&lt;/<span class="title">Details</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="title">Detector</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="title">BugPattern</span> <span class="attribute">type</span>=<span class="value">"TUTORIAL_BUG"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">ShortDescription</span>&gt;</span>BigDecimal created from double<span class="tag">&lt;/<span class="title">ShortDescription</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">LongDescription</span>&gt;</span>BigDecimal created from double in &#123;1&#125;<span class="tag">&lt;/<span class="title">LongDescription</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">Details</span>&gt;</span></span><br><span class="line"><span class="cdata">&lt;![CDATA[</span><br><span class="line">&lt;p&gt;Due to the way double-precision floating point values are represented in Java, creating a new BigDecimal from a double is unreliable and may produce surprising results.&lt;/p&gt;</span><br><span class="line">]]&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="title">Details</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">BugPattern</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="title">BugCode</span> <span class="attribute">abbrev</span>=<span class="value">"TU"</span>&gt;</span>Tutorial<span class="tag">&lt;/<span class="title">BugCode</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">MessageCollection</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>将FB Plugin项目build为jar包，勾选图中文件：<br><img src="/../img/findbugs/build_jar.png" alt="build"></p>
+<p>将打包的jar文件放到FindBugs的plugin目录下，在运行FindBugs时即可被调用。</p>
+<p><em>参考资料：</em><a href="https://code.google.com/p/findbugs/wiki/DetectorPluginTutorial" target="_blank" rel="external">Detector Plugin Tutorial</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/20150511/从定义最简单Findbugs-Detector做起/">从定义最简单Findbugs Detector做起</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Spanda 的个人博客">Spanda</a></p>
+        <p><span>发布时间:</span>2015年05月11日 - 01时40分</p>
+        <p><span>最后更新:</span>2016年01月22日 - 02时26分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/20150511/从定义最简单Findbugs-Detector做起/" title="从定义最简单Findbugs Detector做起">http://panzhihui.github.io/20150511/从定义最简单Findbugs-Detector做起/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20150511/从定义最简单Findbugs-Detector做起/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/20150514/了解Java-Class文件结构/">
+                    了解Java Class文件结构
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/20150511/求两个有序数组的中位数/">
+                    求两个有序数组的中位数
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u521B_u5EFAEclipse_u9879_u76EE"><span class="toc-number">1.</span> <span class="toc-text">创建Eclipse项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8BBE_u7F6ECLASSPATH"><span class="toc-number">2.</span> <span class="toc-text">设置CLASSPATH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7F16_u5199BUG_Detector"><span class="toc-number">3.</span> <span class="toc-text">编写BUG Detector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u90E8_u7F72_u548C_u6D4B_u8BD5"><span class="toc-number">4.</span> <span class="toc-text">部署和测试</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+<div class="share">
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+    <a href="#" class="bds_copy" data-cmd="copy" title="复制网址"></a>
+    <a href="#" class="bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+    </div>
+    <script>
+        window._bd_share_config={
+            "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+</div>
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="20150511/从定义最简单Findbugs-Detector做起/" data-title="从定义最简单Findbugs Detector做起" data-url="http://panzhihui.github.io/20150511/从定义最简单Findbugs-Detector做起/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"panzhihui"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/20150514/了解Java-Class文件结构/" title="上一篇: 了解Java Class文件结构">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/20150511/求两个有序数组的中位数/" title="下一篇: 求两个有序数组的中位数">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/20160119/使用hexo及github搭建个人博客记录/">使用Hexo及GitHub搭建个人博客记录</a></li><li class="post-list-item"><a class="post-list-link" href="/20150514/了解Java-Class文件结构/">了解Java Class文件结构</a></li><li class="post-list-item"><a class="post-list-link" href="/20150511/从定义最简单Findbugs-Detector做起/">从定义最简单Findbugs Detector做起</a></li><li class="post-list-item"><a class="post-list-link" href="/20150511/求两个有序数组的中位数/">求两个有序数组的中位数</a></li><li class="post-list-item"><a class="post-list-link" href="/20150510/输入16进制数序列，将其二进制反序并输出新的16进制数/">输入16进制数序列，将其二进制反序并输出新的16进制数</a></li><li class="post-list-item"><a class="post-list-link" href="/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Spanda
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的静态博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减双栏 Hexo 博客主题">Yelee</a>
+            </div>
+        </div>
+        <div class="visit">
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <span id="site-visit" >本站到访数: 
+                    <span id="busuanzi_value_site_uv"></span>
+                </span>
+            </span>
+            <span id="busuanzi_container_page_pv" style='display:none'>
+                <span id="page-visit">, 本页阅读量: 
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+            </span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

@@ -135,7 +135,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a>
+                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/findbugs/" style="font-size: 10px;">findbugs</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 15px;">笔试题</a>
                     </div>
                 </section>
                 
@@ -278,11 +278,11 @@
 
 
   
-    <article id="post-ISO-8859-1-ASCII-GB-2312-Unicode字符集解析" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-了解Java-Class文件结构" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/" class="article-date">
-      <time datetime="2016-01-18T09:47:02.000Z" itemprop="datePublished">2016-01-18</time>
+      <a href="/20150514/了解Java-Class文件结构/" class="article-date">
+      <time datetime="2015-05-13T17:58:55.000Z" itemprop="datePublished">2015-05-14</time>
 </a>
     </div>
   
@@ -295,7 +295,276 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a>
+      <a class="article-title" href="/20150514/了解Java-Class文件结构/">了解Java Class文件结构</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>我们都知道Java文件经过编译后是一个二进制的class文件，但多数情况下我们更了解Java语法，它能帮助我们编写漂亮的代码，但知道Java更底层的东西我们就能写出更高效的代码。在研究findbugs工具时，由于其使用BCEL来处理class文件，这就要求我们对class文件的基本结构有一定的了解。这里纯粹是记录我在学习class文件结构的一些总结，要更系统深入的学习可以查看官方文档<a href="/(http://docs.oracle.com/javase/specs/jvms/se7/html/)">The Java Virtual Machine Specification</a>。</p>
+<blockquote>
+<p>1.class文件是由8个字节为基础的字节流构成的，这些字节流之间都严格按照规定的顺序排列，并且字节之间不存在任何空隙，对于超过8个字节的数据，将按照Big-Endian的顺序存储的。<br>2.class文件结构采用类似C语言的结构体来存储数据的，主要有两类数据项，无符号数和表，无符号数用来表述数字，索引引用以及字符串等，比如 u1,u2,u4,u8分别代表1个字节，2个字节，4个字节，8个字节的无符号数，而表是由多个无符号数以及其它的表组成的复合结构。</p>
+</blockquote>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/学习总结/">学习总结</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bytecode/">bytecode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/class/">class</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/20150514/了解Java-Class文件结构/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-从定义最简单Findbugs-Detector做起" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20150511/从定义最简单Findbugs-Detector做起/" class="article-date">
+      <time datetime="2015-05-10T17:40:55.000Z" itemprop="datePublished">2015-05-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20150511/从定义最简单Findbugs-Detector做起/">从定义最简单Findbugs Detector做起</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="u521B_u5EFAEclipse_u9879_u76EE"><a href="#u521B_u5EFAEclipse_u9879_u76EE" class="headerlink" title="创建Eclipse项目"></a>创建Eclipse项目</h3><p>在eclipse中新建一个Java项目，使用jdk 1.7，从版本3.0开始Findbugs要求Java 7。项目名称符合Java项目名即可，这里以FB Plugin为例。<br><img src="/../img/findbugs/new_project.png" alt="new project"></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/学习总结/">学习总结</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/findbugs/">findbugs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/plugin/">plugin</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/20150511/从定义最简单Findbugs-Detector做起/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-求两个有序数组的中位数" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20150511/求两个有序数组的中位数/" class="article-date">
+      <time datetime="2015-05-10T17:25:32.000Z" itemprop="datePublished">2015-05-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20150511/求两个有序数组的中位数/">求两个有序数组的中位数</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><a href="http://blog.csdn.net/kenby/article/details/6833407">原文</a>，本文给出java实现</p>
+<p>设数组A的长度为m, 数组B的长度为n， 两个数组都都是递增有序的。</p>
+<p>求这两个数组的中位数</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/笔试题/">笔试题</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔试题/">笔试题</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/20150511/求两个有序数组的中位数/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-输入16进制数序列，将其二进制反序并输出新的16进制数" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20150510/输入16进制数序列，将其二进制反序并输出新的16进制数/" class="article-date">
+      <time datetime="2015-05-09T17:10:38.000Z" itemprop="datePublished">2015-05-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20150510/输入16进制数序列，将其二进制反序并输出新的16进制数/">输入16进制数序列，将其二进制反序并输出新的16进制数</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>输入16进制数序列，如</p>
+<p>输入：1a1bf</p>
+<p>二进制：0001 1010 0001 1011 1111</p>
+<p>反转：1111  1101 1000 0101 1000</p>
+<p>输出：FD858</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/笔试题/">笔试题</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔试题/">笔试题</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/20150510/输入16进制数序列，将其二进制反序并输出新的16进制数/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-ISO-8859-1-ASCII-GB-2312-Unicode字符集解析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/" class="article-date">
+      <time datetime="2015-05-07T09:47:02.000Z" itemprop="datePublished">2015-05-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a>
     </h1>
   
 
@@ -325,7 +594,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/#more">more >></a>
+          <a  href="/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

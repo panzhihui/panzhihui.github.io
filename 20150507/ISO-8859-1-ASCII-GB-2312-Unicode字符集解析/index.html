@@ -8,12 +8,12 @@
   <meta name="description" content="在编程方面经常遇到字符编码的问题，由于对字符集没有一个系统的认识，总是被乱码搞得一头雾水，这篇博文则是对字符编码方面的进行了一下整理，以便日后复习。在学习字符集的过程中，我主要从字符集的（a）编码方式，（b）占用字节，两个方面来进行分析的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ISO-8859-1, ASCII, GB 2312, Unicode字符集解析">
-<meta property="og:url" content="http://panzhihui.github.io/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/index.html">
+<meta property="og:url" content="http://panzhihui.github.io/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/index.html">
 <meta property="og:site_name" content="Spanda's blog">
 <meta property="og:description" content="在编程方面经常遇到字符编码的问题，由于对字符集没有一个系统的认识，总是被乱码搞得一头雾水，这篇博文则是对字符编码方面的进行了一下整理，以便日后复习。在学习字符集的过程中，我主要从字符集的（a）编码方式，（b）占用字节，两个方面来进行分析的。">
 <meta property="og:image" content="http://panzhihui.github.io/../img/charset/latin.png">
 <meta property="og:image" content="http://panzhihui.github.io/../img/charset/utf.png">
-<meta property="og:updated_time" content="2016-01-19T15:01:54.132Z">
+<meta property="og:updated_time" content="2016-01-21T17:23:03.851Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ISO-8859-1, ASCII, GB 2312, Unicode字符集解析">
 <meta name="twitter:description" content="在编程方面经常遇到字符编码的问题，由于对字符集没有一个系统的认识，总是被乱码搞得一头雾水，这篇博文则是对字符编码方面的进行了一下整理，以便日后复习。在学习字符集的过程中，我主要从字符集的（a）编码方式，（b）占用字节，两个方面来进行分析的。">
@@ -135,7 +135,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a>
+                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/findbugs/" style="font-size: 10px;">findbugs</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 15px;">笔试题</a>
                     </div>
                 </section>
                 
@@ -208,8 +208,8 @@
       <div class="body-wrap"><article id="post-ISO-8859-1-ASCII-GB-2312-Unicode字符集解析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/" class="article-date">
-      <time datetime="2016-01-18T09:47:02.000Z" itemprop="datePublished">2016-01-18</time>
+      <a href="/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/" class="article-date">
+      <time datetime="2015-05-07T09:47:02.000Z" itemprop="datePublished">2015-05-07</time>
 </a>
     </div>
   
@@ -294,13 +294,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a></p>
+        <p><span>本文标题:</span><a href="/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Spanda 的个人博客">Spanda</a></p>
-        <p><span>发布时间:</span>2016年01月18日 - 17时47分</p>
-        <p><span>最后更新:</span>2016年01月19日 - 23时01分</p>
+        <p><span>发布时间:</span>2015年05月07日 - 17时47分</p>
+        <p><span>最后更新:</span>2016年01月22日 - 01时23分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/" title="ISO-8859-1, ASCII, GB 2312, Unicode字符集解析">http://panzhihui.github.io/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/" title="ISO-8859-1, ASCII, GB 2312, Unicode字符集解析">http://panzhihui.github.io/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -314,8 +314,8 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/20160119/使用hexo及github搭建个人博客记录/">
-                    使用Hexo及GitHub搭建个人博客记录
+                <a href="/20150510/输入16进制数序列，将其二进制反序并输出新的16进制数/">
+                    输入16进制数序列，将其二进制反序并输出新的16进制数
                 </a>
             </div>
         
@@ -391,7 +391,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/" data-title="ISO-8859-1, ASCII, GB 2312, Unicode字符集解析" data-url="http://panzhihui.github.io/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/"></div>
+    <div class="ds-thread" data-thread-key="20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/" data-title="ISO-8859-1, ASCII, GB 2312, Unicode字符集解析" data-url="http://panzhihui.github.io/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -415,7 +415,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/20160119/使用hexo及github搭建个人博客记录/" title="上一篇: 使用Hexo及GitHub搭建个人博客记录">
+            <a href="/20150510/输入16进制数序列，将其二进制反序并输出新的16进制数/" title="上一篇: 输入16进制数序列，将其二进制反序并输出新的16进制数">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -427,7 +427,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/20160119/使用hexo及github搭建个人博客记录/">使用Hexo及GitHub搭建个人博客记录</a></li><li class="post-list-item"><a class="post-list-link" href="/20160118/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/20160119/使用hexo及github搭建个人博客记录/">使用Hexo及GitHub搭建个人博客记录</a></li><li class="post-list-item"><a class="post-list-link" href="/20150514/了解Java-Class文件结构/">了解Java Class文件结构</a></li><li class="post-list-item"><a class="post-list-link" href="/20150511/从定义最简单Findbugs-Detector做起/">从定义最简单Findbugs Detector做起</a></li><li class="post-list-item"><a class="post-list-link" href="/20150511/求两个有序数组的中位数/">求两个有序数组的中位数</a></li><li class="post-list-item"><a class="post-list-link" href="/20150510/输入16进制数序列，将其二进制反序并输出新的16进制数/">输入16进制数序列，将其二进制反序并输出新的16进制数</a></li><li class="post-list-item"><a class="post-list-link" href="/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a></li></ul>
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
