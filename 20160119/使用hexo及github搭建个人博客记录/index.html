@@ -16,7 +16,7 @@
 <meta property="og:image" content="http://panzhihui.github.io/../img/hexo/git_conn.png">
 <meta property="og:image" content="http://panzhihui.github.io/../img/hexo/site_structure.png">
 <meta property="og:image" content="http://panzhihui.github.io/../img/hexo/duo_shuo.png">
-<meta property="og:updated_time" content="2016-01-21T06:38:49.182Z">
+<meta property="og:updated_time" content="2016-01-23T14:40:24.696Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Hexo及GitHub搭建个人博客记录">
 <meta name="twitter:description" content="记录本人使用Hexo框架在GitHub平台上搭建个人博客的过程。Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。GitHub是一个利用Git进行版本控制、专门用于存放软件代码与内容的共享虚拟主机服务。Hexo在本地可以一键轻松建立站点，并通过简单的配置，将站点部署到GitHub平台上。本文系统为WIN">
@@ -138,7 +138,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/findbugs/" style="font-size: 10px;">findbugs</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 15px;">笔试题</a>
+                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/bcel/" style="font-size: 10px;">bcel</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/findbugs/" style="font-size: 15px;">findbugs</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/reader/" style="font-size: 10px;">reader</a> <a href="/tags/stream/" style="font-size: 10px;">stream</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/writer/" style="font-size: 10px;">writer</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 15px;">笔试题</a>
                     </div>
                 </section>
                 
@@ -250,7 +250,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>　　记录本人使用Hexo框架在GitHub平台上搭建个人博客的过程。<a href="https://hexo.io/zh-cn/docs/index.html" title="hexo" target="_blank" rel="external">Hexo</a> 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<a href="https://github.com/" title="github" target="_blank" rel="external">GitHub</a>是一个利用Git进行版本控制、专门用于存放软件代码与内容的共享虚拟主机服务。Hexo在本地可以一键轻松建立站点，并通过简单的配置，将站点部署到GitHub平台上。本文系统为WIN7 32位，需要用到以下环境：</p>
+        <p>记录本人使用Hexo框架在GitHub平台上搭建个人博客的过程。<a href="https://hexo.io/zh-cn/docs/index.html" title="hexo" target="_blank" rel="external">Hexo</a> 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<a href="https://github.com/" title="github" target="_blank" rel="external">GitHub</a>是一个利用Git进行版本控制、专门用于存放软件代码与内容的共享虚拟主机服务。Hexo在本地可以一键轻松建立站点，并通过简单的配置，将站点部署到GitHub平台上。本文系统为WIN7 32位，需要用到以下环境：</p>
 <blockquote>
 <ul>
 <li><a href="https://nodejs.org/en/" title="node.js" target="_blank" rel="external">Node.js</a>, 版本v5.4.1，Hexo基于该框架</li>
@@ -258,13 +258,13 @@
 </ul>
 </blockquote>
 <a id="more"></a>
-<h2 id="u73AF_u5883_u51C6_u5907"><a href="#u73AF_u5883_u51C6_u5907" class="headerlink" title="环境准备"></a>环境准备</h2><p>　　我们需要搭建Hexo环境，以及配置Git环境（向GitHub上部署博客站点时需要）</p>
-<h3 id="Hexo_u73AF_u5883_u642D_u5EFA"><a href="#Hexo_u73AF_u5883_u642D_u5EFA" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h3><p>　　Hexo框架是Node.js框架下的一个包，在windows上一键安装Node.js环境后，使用Node.js下的包管理工具npm即可一键安装Hexo框架，命令如下：</p>
+<h2 id="u73AF_u5883_u51C6_u5907"><a href="#u73AF_u5883_u51C6_u5907" class="headerlink" title="环境准备"></a>环境准备</h2><p>我们需要搭建Hexo环境，以及配置Git环境（向GitHub上部署博客站点时需要）</p>
+<h3 id="Hexo_u73AF_u5883_u642D_u5EFA"><a href="#Hexo_u73AF_u5883_u642D_u5EFA" class="headerlink" title="Hexo环境搭建"></a>Hexo环境搭建</h3><p>Hexo框架是Node.js框架下的一个包，在windows上一键安装Node.js环境后，使用Node.js下的包管理工具npm即可一键安装Hexo框架，命令如下：</p>
 <blockquote>
 <p>npm install -g hexo</p>
 </blockquote>
-<p>　　在<a href="https://hexo.io/zh-cn/docs/" title="Hexo教程" target="_blank" rel="external">Hexo教程官网</a>上使用的命令是<code>npm install -g hexo-cli</code>，而本人在实际操作过程中使用该命令安装hexo-cli后，在创建站点（后续章节介绍）执行<code>npm install</code>命令时出现下图错误，改用<code>npm install -g hexo</code>安装完整Hexo后，则没有问题。<br><img src="/../img/hexo/npm_install_error.png" alt="&quot;建站报错&quot;"></p>
-<h3 id="Git_u73AF_u5883_u51C6_u5907"><a href="#Git_u73AF_u5883_u51C6_u5907" class="headerlink" title="Git环境准备"></a>Git环境准备</h3><p>　　在Git for Windows安装完成后，就具备了本地的git环境，我们需要做的是连接到我们的GitHub上，需要以下步骤：<br>1.创建GitHub账号（已有忽略本步骤）<br>2.在git bash窗口下，设置Git的account和email</p>
+<p>在<a href="https://hexo.io/zh-cn/docs/" title="Hexo教程" target="_blank" rel="external">Hexo教程官网</a>上使用的命令是<code>npm install -g hexo-cli</code>，而本人在实际操作过程中使用该命令安装hexo-cli后，在创建站点（后续章节介绍）执行<code>npm install</code>命令时出现下图错误，改用<code>npm install -g hexo</code>安装完整Hexo后，则没有问题。<br><img src="/../img/hexo/npm_install_error.png" alt="&quot;建站报错&quot;"></p>
+<h3 id="Git_u73AF_u5883_u51C6_u5907"><a href="#Git_u73AF_u5883_u51C6_u5907" class="headerlink" title="Git环境准备"></a>Git环境准备</h3><p>在Git for Windows安装完成后，就具备了本地的git环境，我们需要做的是连接到我们的GitHub上，需要以下步骤：<br>1.创建GitHub账号（已有忽略本步骤）<br>2.在git bash窗口下，设置Git的account和email</p>
 <blockquote>
 <p>git config –global user.name “github account”<br>git config –global user.email “email used in github”</p>
 </blockquote>
@@ -272,11 +272,11 @@
 <blockquote>
 <p>ssh-keygen -t rsa -C “your email address”</p>
 </blockquote>
-<p>　　此步骤会有多个输入，连续回车即可。最后会在系统盘的用户目录下生成一个.ssh目录，里面包含id_rsa和id_rsa.pub两个文件。</p>
-<p>4.登入GitHub，add SSH key<br>　　在用户的设置里面，添加SSH key，将id_rsa.pub文件里面所有的内容都拷贝进去，title可以不用设置。<br><img src="/../img/hexo/add_ssh_key.png" alt="add ssh key"></p>
-<p>5.测试<br>　　使用<code>ssh -T git@github.com</code>测试是否连接成功。<br><img src="/../img/hexo/git_conn.png" alt="&quot;连接成功&quot;"></p>
-<p>　　自此，博客站点所需要的环境配置完成。</p>
-<h2 id="u7AD9_u70B9_u914D_u7F6E_u5E76_u90E8_u7F72_u5230GitHub"><a href="#u7AD9_u70B9_u914D_u7F6E_u5E76_u90E8_u7F72_u5230GitHub" class="headerlink" title="站点配置并部署到GitHub"></a>站点配置并部署到GitHub</h2><h3 id="u521B_u5EFA_u7AD9_u70B9"><a href="#u521B_u5EFA_u7AD9_u70B9" class="headerlink" title="创建站点"></a>创建站点</h3><p>　　使用几条Hexo框架命令即能完成，生成站点目录结构</p>
+<p>此步骤会有多个输入，连续回车即可。最后会在系统盘的用户目录下生成一个.ssh目录，里面包含id_rsa和id_rsa.pub两个文件。</p>
+<p>4.登入GitHub，add SSH key<br>在用户的设置里面，添加SSH key，将id_rsa.pub文件里面所有的内容都拷贝进去，title可以不用设置。<br><img src="/../img/hexo/add_ssh_key.png" alt="add ssh key"></p>
+<p>5.测试<br>使用<code>ssh -T git@github.com</code>测试是否连接成功。<br><img src="/../img/hexo/git_conn.png" alt="&quot;连接成功&quot;"></p>
+<p>自此，博客站点所需要的环境配置完成。</p>
+<h2 id="u7AD9_u70B9_u914D_u7F6E_u5E76_u90E8_u7F72_u5230GitHub"><a href="#u7AD9_u70B9_u914D_u7F6E_u5E76_u90E8_u7F72_u5230GitHub" class="headerlink" title="站点配置并部署到GitHub"></a>站点配置并部署到GitHub</h2><h3 id="u521B_u5EFA_u7AD9_u70B9"><a href="#u521B_u5EFA_u7AD9_u70B9" class="headerlink" title="创建站点"></a>创建站点</h3><p>使用几条Hexo框架命令即能完成，生成站点目录结构</p>
 <blockquote>
 <ul>
 <li><code>hexo init &lt;folder&gt;</code></li>
@@ -284,15 +284,15 @@
 <li><code>npm install</code></li>
 </ul>
 </blockquote>
-<p>　　folder可有可无，若不填写，则将站点部署在当前目录下，第二条语句也不需要执行。<br><img src="/../img/hexo/site_structure.png" alt="&quot;目录结构&quot;"></p>
+<p>folder可有可无，若不填写，则将站点部署在当前目录下，第二条语句也不需要执行。<br><img src="/../img/hexo/site_structure.png" alt="&quot;目录结构&quot;"></p>
 <pre><code>node_modules: Hexo框架渲染页面等用到的一些包
 public：包含Hexo框架生成的静态页面
 scffolds：创建页面是用到的模板，默认有post、page、draft
 source：markdown文件等
 themes：站点主题目录
 _config.xml: 站点配置文件
-</code></pre><p>　　创建站点完成，依次用<code>hexo generate</code>命令生成静态页面，和用<code>hexo server</code>启动站点，即可在<code>localhost:4000</code>上看到Hexo默认的hello world页面。</p>
-<h3 id="u5E38_u7528_u914D_u7F6E"><a href="#u5E38_u7528_u914D_u7F6E" class="headerlink" title="常用配置"></a>常用配置</h3><p>　　一目了然的就不说了，介绍几个主要的，大多数配置使用默认即可</p>
+</code></pre><p>创建站点完成，依次用<code>hexo generate</code>命令生成静态页面，和用<code>hexo server</code>启动站点，即可在<code>localhost:4000</code>上看到Hexo默认的hello world页面。</p>
+<h3 id="u5E38_u7528_u914D_u7F6E"><a href="#u5E38_u7528_u914D_u7F6E" class="headerlink" title="常用配置"></a>常用配置</h3><p>　一目了然的就不说了，介绍几个主要的，大多数配置使用默认即可</p>
 <ul>
 <li>permalink：文章的链接URL格式，默认如下2016/01/19/文章名，可自行修改</li>
 <li>new_post_name：采用<code>hexo new</code>新建一篇文章时markdown文件的命名格式</li>
@@ -312,9 +312,9 @@ _config.xml: 站点配置文件
 <blockquote>
 <p>hexo deploy</p>
 </blockquote>
-<h2 id="u8BBE_u7F6E_u8BC4_u8BBA"><a href="#u8BBE_u7F6E_u8BC4_u8BBA" class="headerlink" title="设置评论"></a>设置评论</h2><p>　　本人是先更换主题，然后在设置评论的，这里也只记录下自己的操作。</p>
-<h3 id="u4E3B_u9898_u66F4_u6362"><a href="#u4E3B_u9898_u66F4_u6362" class="headerlink" title="主题更换"></a>主题更换</h3><p>　　下载相应的主题到themes目录下，然后在<em>站点的配置文件下_config.xml</em>将<code>theme:</code>该为你的主题名字即可。</p>
-<h3 id="u5F00_u542F_u8BC4_u8BBA"><a href="#u5F00_u542F_u8BC4_u8BBA" class="headerlink" title="开启评论"></a>开启评论</h3><p>　　以多说评论为例，本人使用的<a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" rel="external">yelee</a>已经将必要的代码都放到了主要文件里，引入评论模块的代码在article.ejs下，评论模块代码则放置在comments文件加下。</p>
+<h2 id="u8BBE_u7F6E_u8BC4_u8BBA"><a href="#u8BBE_u7F6E_u8BC4_u8BBA" class="headerlink" title="设置评论"></a>设置评论</h2><p>本人是先更换主题，然后在设置评论的，这里也只记录下自己的操作。</p>
+<h3 id="u4E3B_u9898_u66F4_u6362"><a href="#u4E3B_u9898_u66F4_u6362" class="headerlink" title="主题更换"></a>主题更换</h3><p>下载相应的主题到themes目录下，然后在<em>站点的配置文件下_config.xml</em>将<code>theme:</code>该为你的主题名字即可。</p>
+<h3 id="u5F00_u542F_u8BC4_u8BBA"><a href="#u5F00_u542F_u8BC4_u8BBA" class="headerlink" title="开启评论"></a>开启评论</h3><p>以多说评论为例，本人使用的<a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" rel="external">yelee</a>已经将必要的代码都放到了主要文件里，引入评论模块的代码在article.ejs下，评论模块代码则放置在comments文件加下。</p>
 <blockquote>
 <ul>
 <li>到<a href="http://duoshuo.com/create-site/" target="_blank" rel="external">http://duoshuo.com/create-site/</a>上注册</li>
@@ -333,7 +333,7 @@ _config.xml: 站点配置文件
         <p><span>本文标题:</span><a href="/20160119/使用hexo及github搭建个人博客记录/">使用Hexo及GitHub搭建个人博客记录</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Spanda 的个人博客">Spanda</a></p>
         <p><span>发布时间:</span>2016年01月19日 - 23时45分</p>
-        <p><span>最后更新:</span>2016年01月21日 - 14时38分</p>
+        <p><span>最后更新:</span>2016年01月23日 - 22时40分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/20160119/使用hexo及github搭建个人博客记录/" title="使用Hexo及GitHub搭建个人博客记录">http://panzhihui.github.io/20160119/使用hexo及github搭建个人博客记录/</a>
             <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20160119/使用hexo及github搭建个人博客记录/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -351,8 +351,8 @@ _config.xml: 站点配置文件
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/20150514/了解Java-Class文件结构/">
-                    了解Java Class文件结构
+                <a href="/20150629/Java-容器/">
+                    Java 容器
                 </a>
             </div>
         
@@ -457,13 +457,13 @@ _config.xml: 站点配置文件
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/20150514/了解Java-Class文件结构/" title="下一篇: 了解Java Class文件结构">
+            <a href="/20150629/Java-容器/" title="下一篇: Java 容器">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/20160119/使用hexo及github搭建个人博客记录/">使用Hexo及GitHub搭建个人博客记录</a></li><li class="post-list-item"><a class="post-list-link" href="/20150514/了解Java-Class文件结构/">了解Java Class文件结构</a></li><li class="post-list-item"><a class="post-list-link" href="/20150511/从定义最简单Findbugs-Detector做起/">从定义最简单Findbugs Detector做起</a></li><li class="post-list-item"><a class="post-list-link" href="/20150511/求两个有序数组的中位数/">求两个有序数组的中位数</a></li><li class="post-list-item"><a class="post-list-link" href="/20150510/输入16进制数序列，将其二进制反序并输出新的16进制数/">输入16进制数序列，将其二进制反序并输出新的16进制数</a></li><li class="post-list-item"><a class="post-list-link" href="/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/20160119/使用hexo及github搭建个人博客记录/">使用Hexo及GitHub搭建个人博客记录</a></li><li class="post-list-item"><a class="post-list-link" href="/20150629/Java-容器/">Java 容器</a></li><li class="post-list-item"><a class="post-list-link" href="/20150614/Java多线程-线程同步/">Java多线程 线程同步</a></li><li class="post-list-item"><a class="post-list-link" href="/20150609/Java多线程-线程池/">Java多线程 线程池</a></li><li class="post-list-item"><a class="post-list-link" href="/20150526/FindBugs检测器实现-2/">FindBugs检测器实现(2)</a></li><li class="post-list-item"><a class="post-list-link" href="/20150523/FindBugs检测器实现-1/">FindBugs检测器实现(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/20150521/Java深入学习之NIO-1/">Java深入学习之NIO(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/20150516/Java深入学习之-IO/">Java深入学习之 IO</a></li><li class="post-list-item"><a class="post-list-link" href="/20150515/借助BCEL/">借助BCEL</a></li><li class="post-list-item"><a class="post-list-link" href="/20150514/了解Java-Class文件结构/">了解Java Class文件结构</a></li><li class="post-list-item"><a class="post-list-link" href="/20150511/从定义最简单Findbugs-Detector做起/">从定义最简单Findbugs Detector做起</a></li><li class="post-list-item"><a class="post-list-link" href="/20150511/求两个有序数组的中位数/">求两个有序数组的中位数</a></li><li class="post-list-item"><a class="post-list-link" href="/20150510/输入16进制数序列，将其二进制反序并输出新的16进制数/">输入16进制数序列，将其二进制反序并输出新的16进制数</a></li><li class="post-list-item"><a class="post-list-link" href="/20150507/ISO-8859-1-ASCII-GB-2312-Unicode字符集解析/">ISO-8859-1, ASCII, GB 2312, Unicode字符集解析</a></li></ul>
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
