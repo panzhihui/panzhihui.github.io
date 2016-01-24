@@ -5,16 +5,25 @@
   
   <title>FindBugs检测器实现(2) | Spanda&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="路漫漫其修远兮 吾将上下而求索">
+  <meta name="description" content="在FindBugs检测器实现(1)中提到，FindBugs 主要有5类检测器，这篇日志介绍下FindBugs在类、方法、字段结构上的检测器实现。前面提到基于栈和简单的字节码模式要继承OpcodeStackDetector类，并实现sawOpcode方法用来检测每一个字节码。
+一般在写检测器之前，我们应该有一个自己想要检测的代码模式，但作为学习，这里使用一些简单的模式作为例子：
+
+1.重写了equa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FindBugs检测器实现(2)">
 <meta property="og:url" content="http://panzhihui.github.io/20150526/FindBugs检测器实现-2/index.html">
 <meta property="og:site_name" content="Spanda's blog">
-<meta property="og:description" content="路漫漫其修远兮 吾将上下而求索">
-<meta property="og:updated_time" content="2016-01-22T11:45:00.863Z">
+<meta property="og:description" content="在FindBugs检测器实现(1)中提到，FindBugs 主要有5类检测器，这篇日志介绍下FindBugs在类、方法、字段结构上的检测器实现。前面提到基于栈和简单的字节码模式要继承OpcodeStackDetector类，并实现sawOpcode方法用来检测每一个字节码。
+一般在写检测器之前，我们应该有一个自己想要检测的代码模式，但作为学习，这里使用一些简单的模式作为例子：
+
+1.重写了equa">
+<meta property="og:updated_time" content="2016-01-24T03:08:55.751Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FindBugs检测器实现(2)">
-<meta name="twitter:description" content="路漫漫其修远兮 吾将上下而求索">
+<meta name="twitter:description" content="在FindBugs检测器实现(1)中提到，FindBugs 主要有5类检测器，这篇日志介绍下FindBugs在类、方法、字段结构上的检测器实现。前面提到基于栈和简单的字节码模式要继承OpcodeStackDetector类，并实现sawOpcode方法用来检测每一个字节码。
+一般在写检测器之前，我们应该有一个自己想要检测的代码模式，但作为学习，这里使用一些简单的模式作为例子：
+
+1.重写了equa">
   
     <link rel="alternative" href="/atom.xml" title="Spanda&#39;s blog" type="application/atom+xml">
   
@@ -133,7 +142,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/bcel/" style="font-size: 10px;">bcel</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/findbugs/" style="font-size: 15px;">findbugs</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/reader/" style="font-size: 10px;">reader</a> <a href="/tags/stream/" style="font-size: 10px;">stream</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/writer/" style="font-size: 10px;">writer</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 15px;">笔试题</a>
+                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/bcel/" style="font-size: 10px;">bcel</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/detector/" style="font-size: 13.33px;">detector</a> <a href="/tags/findbugs/" style="font-size: 16.67px;">findbugs</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/io/" style="font-size: 13.33px;">io</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/opcode/" style="font-size: 10px;">opcode</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/pool/" style="font-size: 10px;">pool</a> <a href="/tags/reader/" style="font-size: 10px;">reader</a> <a href="/tags/stream/" style="font-size: 10px;">stream</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/writer/" style="font-size: 10px;">writer</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 13.33px;">笔试题</a>
                     </div>
                 </section>
                 
@@ -228,8 +237,16 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/实践笔记/">实践笔记</a>
+    </div>
+
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/detector/">detector</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/findbugs/">findbugs</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -237,7 +254,25 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+        <p>在FindBugs检测器实现(1)中提到，FindBugs 主要有5类检测器，这篇日志介绍下FindBugs在类、方法、字段结构上的检测器实现。前面提到基于栈和简单的字节码模式要继承OpcodeStackDetector类，并实现sawOpcode方法用来检测每一个字节码。</p>
+<p>一般在写检测器之前，我们应该有一个自己想要检测的代码模式，但作为学习，这里使用一些简单的模式作为例子：</p>
+<blockquote>
+<p>1.重写了equals函数，却没有重写hashCode函数。<br>2.经hashCode函数拼写为hashcode。</p>
+</blockquote>
+<a id="more"></a>
+<p>FindBugs在类、方法、字段层面的检测器实现要继承PreorderDetector类，简单介绍些该类：</p>
+<h3 id="PreorderVisitor"><a href="#PreorderVisitor" class="headerlink" title="PreorderVisitor"></a>PreorderVisitor</h3><p>PreorderVisitor继承了BetterVisitor，并在BetterVisitor的基础之上，添加了大量的方法用来从当前访问的类、方法或字段中获取信息，另外该类还提供了一些visitAfter方法，用来实现访问上的次序，在下面的例子中，我们会看到它的作用。像下面的方法PreorderVisitor中存在太多，这里就不一一列出，可能有些方法不能直接明了的知道其作用，大多可能是我们还不懂java的一些功能的缘故：</p>
+<blockquote>
+<p>public FieldDescriptor getFieldDescriptor()<br>public MethodDescriptor getMethodDescriptor()<br>public ClassDescriptor getClassDescriptor()<br>public @SlashedClassName  String getClassName()<br>public void visitAfter(Code obj)<br>public void visitAfter(JavaClass obj)</p>
+</blockquote>
+<h3 id="u6765_u4E2A_u4F8B_u5B50"><a href="#u6765_u4E2A_u4F8B_u5B50" class="headerlink" title="来个例子"></a>来个例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoPlugin</span> <span class="keyword">extends</span> <span class="title">PreorderDetector</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BugReporter bugReporter;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DemoPlugin</span><span class="params">(BugReporter reporter)</span></span>&#123;</span><br><span class="line">        bugReporter = reporter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> hasHashcode;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> hasEqual;</span><br><span class="line">    <span class="keyword">public</span> MethodAnnotation equals;</span><br><span class="line">    </span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(JavaClass obj)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"visit class!!!!!!!!!"</span> + obj.getClassName());</span><br><span class="line">        hasHashcode = <span class="keyword">false</span>;</span><br><span class="line">        hasEqual = <span class="keyword">false</span>;</span><br><span class="line">        equals = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Method me)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!me.isPublic())</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">"equals"</span>.equals(me.getName()) &amp;&amp; <span class="string">"(Ljava/lang/Object;)Z"</span>.equals(me.getSignature()))&#123;</span><br><span class="line">            hasEqual = <span class="keyword">true</span>;</span><br><span class="line">            System.out.println(<span class="string">"find equals() method"</span>);</span><br><span class="line">            equals = MethodAnnotation.fromVisitedMethod(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(<span class="string">"hashCode"</span>.equals(me.getName()) &amp;&amp; <span class="string">"()I"</span>.equals(me.getSignature()))&#123;</span><br><span class="line">            hasHashcode = <span class="keyword">true</span>;</span><br><span class="line">            System.out.println(<span class="string">"find hashCode() method"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(<span class="string">"hashcode"</span>.equals(me.getName()) &amp;&amp; <span class="string">"()I"</span>.equals(me.getSignature()))&#123;</span><br><span class="line">            bugReporter.reportBug(<span class="keyword">new</span> BugInstance(<span class="keyword">this</span>, <span class="string">"HASHCODE WRONG SPELL"</span>, NORMAL_PRIORITY).</span><br><span class="line">                    addClass(getDottedClassName()).addMethod(MethodAnnotation.fromVisitedMethod(<span class="keyword">this</span>)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visitAfter</span><span class="params">(JavaClass obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(hasEqual &amp;&amp; !hasHashcode)&#123;</span><br><span class="line">            BugInstance instance = <span class="keyword">new</span> BugInstance(<span class="keyword">this</span>, <span class="string">"EQUALS WITHOUT HASHCODE"</span>, NORMAL_PRIORITY).</span><br><span class="line">                    addClass(getDottedClassName()).addMethod(equals);</span><br><span class="line">            bugReporter.reportBug(instance);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们继承了PreorderDetector，而PreorderDetector继承了PreorderVisitor，是因为BugInstance需要使用Detector进行实例，而PreorderDetector实现了Detector接口。</p>
+<h3 id="u5206_u6790"><a href="#u5206_u6790" class="headerlink" title="分析"></a>分析</h3><p>上面方法我们使用了上个变量hasHashcode,hasEquals和equals，前两个变量用来保存当前访问的类是否存在hashCode和equals方法，第三个变量存放的是方法注释（要在报告bug中，这里先不管）。</p>
+<p>上述三个变量每次都在visit(JavaClass obj)方法中进行状态重置，这样才能对所有的类都进行检测。visit(Method me)方法中用来判断是否是equals、hashCode、hashcode方法，并修改相应的状态。如果是hashcode方法，则直接将该bug报告。</p>
+<p>visitAfter(JavaClass obj)方法执行时，已经对当前类检测完毕，这样可以判断是否出现equals方法，而没有出现hashCode方法的情况。</p>
+<p>将fandbugs.xml和massage.xml加到项目中打包，便能对我们定义的模式进行检测。</p>
+<p>以上仅是一个自定义在类、方法、字段层面上的检测器的一般步骤，例子仅是为了说明过程，只要我们熟悉我们想要检测的模式，就能通过上述方法实现。</p>
+
       
     </div>
     
@@ -248,7 +283,7 @@
         <p><span>本文标题:</span><a href="/20150526/FindBugs检测器实现-2/">FindBugs检测器实现(2)</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Spanda 的个人博客">Spanda</a></p>
         <p><span>发布时间:</span>2015年05月26日 - 19时39分</p>
-        <p><span>最后更新:</span>2016年01月22日 - 19时45分</p>
+        <p><span>最后更新:</span>2016年01月24日 - 11时08分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/20150526/FindBugs检测器实现-2/" title="FindBugs检测器实现(2)">http://panzhihui.github.io/20150526/FindBugs检测器实现-2/</a>
             <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20150526/FindBugs检测器实现-2/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -284,7 +319,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#PreorderVisitor"><span class="toc-number">1.</span> <span class="toc-text">PreorderVisitor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6765_u4E2A_u4F8B_u5B50"><span class="toc-number">2.</span> <span class="toc-text">来个例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5206_u6790"><span class="toc-number">3.</span> <span class="toc-text">分析</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {

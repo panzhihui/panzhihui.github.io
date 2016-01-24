@@ -135,7 +135,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/bcel/" style="font-size: 10px;">bcel</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/findbugs/" style="font-size: 15px;">findbugs</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/reader/" style="font-size: 10px;">reader</a> <a href="/tags/stream/" style="font-size: 10px;">stream</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/writer/" style="font-size: 10px;">writer</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 15px;">笔试题</a>
+                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/bcel/" style="font-size: 10px;">bcel</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/detector/" style="font-size: 13.33px;">detector</a> <a href="/tags/findbugs/" style="font-size: 16.67px;">findbugs</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/io/" style="font-size: 13.33px;">io</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/opcode/" style="font-size: 10px;">opcode</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/pool/" style="font-size: 10px;">pool</a> <a href="/tags/reader/" style="font-size: 10px;">reader</a> <a href="/tags/stream/" style="font-size: 10px;">stream</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/writer/" style="font-size: 10px;">writer</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 13.33px;">笔试题</a>
                     </div>
                 </section>
                 
@@ -305,7 +305,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+              <p>在实际问题中我们经常需要处理数据，单纯依靠数组来存储数据对开发来说非常困难，java提供了一套容器来方便我们编程。对java容器有一个整体的了解对我们来说非常重要，这样在需要特定容器时，不会手忙脚乱，本文主要介绍java的一些基本容器，而不要仅知道使用ArrayList。</p>
+          
       
     </div>
     
@@ -314,6 +315,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a  href="/20150629/Java-容器/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -357,15 +362,31 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+              <p>如果你正在写一个变量，它可能接下来将被另一个线程读取，或者正在读取一个上一次已经被另一个线程写过的变量，那么你需要使用同步，并且，读写线程都必须用相同的监视器锁同步。–Brain同步规则</p>
+<h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><blockquote>
+<p>1.所有对象都自动含有单一的锁，当在调用一个对象的任意synchronized方法时，此对象将被加锁。<br>2.对于某个特定对象来说，所有的synchronized方法共享同一个锁。所以某个线程在访问对象的一个synchronized方法时，其他线程访问该对象的任何synchronized方法都将被阻塞。<br>3.一个任务可以多次获得对象锁，如在调用对象的一个方法时，该方法又调用了其他的方法。JVM负责跟踪对象被加锁的次数，这也是锁的可重入性，不可重入的锁可能造成死锁。<br>4.每个类也有一个锁，每个类都是一个class对象，synchronized static方法可以防止对static数据的并发访问<br>5.在使用并发时，最好将字段设置为private，防止线程直接访问字段。</p>
+</blockquote>
+          
       
     </div>
     
     <div class="article-info article-info-index">
       
       
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/学习总结/">学习总结</a>
+    </div>
+
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thread/">thread</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/20150614/Java多线程-线程同步/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -409,15 +430,31 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+              <p>实现一个线程需要实现Runnable接口，或继承Thread类并实现run()方法。在run()方法中定义你需要线程完成的任务。<br>线程的一些操作和特征：</p>
+<blockquote>
+<p>1.从线程中返回值，可以实现Callable接口，并重写call方法。<br>2.线程休眠TimeUnit.MILLISECONDS.sleep()，TimeUnit是一个枚举类<br>3.线程可以设置优先级<br>4.线程让步yield()<br>5.后台线程daemon，非后台线程结束时，后台线程将被杀死</p>
+</blockquote>
+          
       
     </div>
     
     <div class="article-info article-info-index">
       
       
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/学习总结/">学习总结</a>
+    </div>
+
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pool/">pool</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thread/">thread</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/20150609/Java多线程-线程池/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -461,15 +498,32 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+              <p>在FindBugs检测器实现(1)中提到，FindBugs 主要有5类检测器，这篇日志介绍下FindBugs在类、方法、字段结构上的检测器实现。前面提到基于栈和简单的字节码模式要继承OpcodeStackDetector类，并实现sawOpcode方法用来检测每一个字节码。</p>
+<p>一般在写检测器之前，我们应该有一个自己想要检测的代码模式，但作为学习，这里使用一些简单的模式作为例子：</p>
+<blockquote>
+<p>1.重写了equals函数，却没有重写hashCode函数。<br>2.经hashCode函数拼写为hashcode。</p>
+</blockquote>
+          
       
     </div>
     
     <div class="article-info article-info-index">
       
       
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/实践笔记/">实践笔记</a>
+    </div>
+
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/detector/">detector</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/findbugs/">findbugs</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/20150526/FindBugs检测器实现-2/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -513,15 +567,32 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+              <p>FindBugs的检测器大多以下面五种方式来实现，且这五种实现方式findbugs都提供了接口：</p>
+<blockquote>
+<p>1.检查类、方法、字段结构<br>2.微模式，简单的字节码模式<br>3.基于栈的模式<br>4.数据流分析<br>5.内部过程的分析</p>
+</blockquote>
+<p>本文将介绍findbugs中stack-based pattern的实现过程和需要用到的接口。在这之前，我们必须要有一些必备的java知识，如JVM栈内存、JVM字节码指令、class文件结构。</p>
+          
       
     </div>
     
     <div class="article-info article-info-index">
       
       
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/实践笔记/">实践笔记</a>
+    </div>
+
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/detector/">detector</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/findbugs/">findbugs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/opcode/">opcode</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/20150523/FindBugs检测器实现-1/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>

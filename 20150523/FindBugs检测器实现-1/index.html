@@ -5,16 +5,30 @@
   
   <title>FindBugs检测器实现(1) | Spanda&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="路漫漫其修远兮 吾将上下而求索">
+  <meta name="description" content="FindBugs的检测器大多以下面五种方式来实现，且这五种实现方式findbugs都提供了接口：
+
+1.检查类、方法、字段结构2.微模式，简单的字节码模式3.基于栈的模式4.数据流分析5.内部过程的分析
+
+本文将介绍findbugs中stack-based pattern的实现过程和需要用到的接口。在这之前，我们必须要有一些必备的java知识，如JVM栈内存、JVM字节码指令、class文件结构。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FindBugs检测器实现(1)">
 <meta property="og:url" content="http://panzhihui.github.io/20150523/FindBugs检测器实现-1/index.html">
 <meta property="og:site_name" content="Spanda's blog">
-<meta property="og:description" content="路漫漫其修远兮 吾将上下而求索">
-<meta property="og:updated_time" content="2016-01-22T11:44:40.626Z">
+<meta property="og:description" content="FindBugs的检测器大多以下面五种方式来实现，且这五种实现方式findbugs都提供了接口：
+
+1.检查类、方法、字段结构2.微模式，简单的字节码模式3.基于栈的模式4.数据流分析5.内部过程的分析
+
+本文将介绍findbugs中stack-based pattern的实现过程和需要用到的接口。在这之前，我们必须要有一些必备的java知识，如JVM栈内存、JVM字节码指令、class文件结构。">
+<meta property="og:image" content="http://panzhihui.github.io/../img/findbugs/opcode_stack_detector.png">
+<meta property="og:image" content="http://panzhihui.github.io/../img/findbugs/example_output.png">
+<meta property="og:updated_time" content="2016-01-24T03:01:43.285Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FindBugs检测器实现(1)">
-<meta name="twitter:description" content="路漫漫其修远兮 吾将上下而求索">
+<meta name="twitter:description" content="FindBugs的检测器大多以下面五种方式来实现，且这五种实现方式findbugs都提供了接口：
+
+1.检查类、方法、字段结构2.微模式，简单的字节码模式3.基于栈的模式4.数据流分析5.内部过程的分析
+
+本文将介绍findbugs中stack-based pattern的实现过程和需要用到的接口。在这之前，我们必须要有一些必备的java知识，如JVM栈内存、JVM字节码指令、class文件结构。">
   
     <link rel="alternative" href="/atom.xml" title="Spanda&#39;s blog" type="application/atom+xml">
   
@@ -133,7 +147,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/bcel/" style="font-size: 10px;">bcel</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/findbugs/" style="font-size: 15px;">findbugs</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/io/" style="font-size: 15px;">io</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/reader/" style="font-size: 10px;">reader</a> <a href="/tags/stream/" style="font-size: 10px;">stream</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/writer/" style="font-size: 10px;">writer</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 15px;">笔试题</a>
+                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/bcel/" style="font-size: 10px;">bcel</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/detector/" style="font-size: 13.33px;">detector</a> <a href="/tags/findbugs/" style="font-size: 16.67px;">findbugs</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/io/" style="font-size: 13.33px;">io</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/opcode/" style="font-size: 10px;">opcode</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/pool/" style="font-size: 10px;">pool</a> <a href="/tags/reader/" style="font-size: 10px;">reader</a> <a href="/tags/stream/" style="font-size: 10px;">stream</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/writer/" style="font-size: 10px;">writer</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 13.33px;">笔试题</a>
                     </div>
                 </section>
                 
@@ -228,8 +242,16 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/实践笔记/">实践笔记</a>
+    </div>
+
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/detector/">detector</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/findbugs/">findbugs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/opcode/">opcode</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -237,7 +259,32 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+        <p>FindBugs的检测器大多以下面五种方式来实现，且这五种实现方式findbugs都提供了接口：</p>
+<blockquote>
+<p>1.检查类、方法、字段结构<br>2.微模式，简单的字节码模式<br>3.基于栈的模式<br>4.数据流分析<br>5.内部过程的分析</p>
+</blockquote>
+<p>本文将介绍findbugs中stack-based pattern的实现过程和需要用到的接口。在这之前，我们必须要有一些必备的java知识，如JVM栈内存、JVM字节码指令、class文件结构。</p>
+<a id="more"></a>
+<h3 id="u5B57_u8282_u7801_u6307_u4EE4"><a href="#u5B57_u8282_u7801_u6307_u4EE4" class="headerlink" title="字节码指令"></a>字节码指令</h3><p>JVM为每一个线程都分配一个java栈，且栈以栈帧的形式进行管理，每调用一个方法都向栈中添加一个栈帧，栈帧由局部变量区、操作数区、和帧数据区组成。看一个简单的字节码指令示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    BigDecimal a = <span class="keyword">new</span> BigDecimal(<span class="number">0.11</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>指令：</em></p>
+<blockquote>
+<p>  0: new           #28    // class java/math/BigDecimal<br>    3: dup<br>    4: ldc2_w        #30    // double 0.11d<br>    7: invokespecial #32    // Method java/math/BigDecimal.”<init>“:(D)V<br>    10: astore_1<br>    11: return</init></p>
+</blockquote>
+<p>main方法中仅有一条语句，它创建了一个BigDecimal类实例，并把它赋值给本地变量a。左边方框是main函数的字节码指令，我们来看看这些指令对main方法栈帧的操作。（new）创建BigDecimal对象，并向栈顶压入引用值；（dup）复制栈顶引用，压栈；（ldc2_w）从常量池中将0.11d推送到栈顶；（invokespecial）调用构造函数，并弹出对象引用和参数，调用结束将对象引用压栈；（astore_1）弹出对象引用，并存储在main函数的局部变量1位置（0位置为main方法参数）；（return）返回。了解JVM的栈结构和字节码指令对栈的操作，这样我们才能使用stack来分析java代码中一些不好的模式。</p>
+<h3 id="OpcodeStackDetector"><a href="#OpcodeStackDetector" class="headerlink" title="OpcodeStackDetector"></a>OpcodeStackDetector</h3><p>使用Stack-based来实现findbugs的检测器都要继承OpcodeStackDetector这个类，并且实现sawOpcode(int)方法。这个方法传入的操作码的值，根据这个值我们可以得到操作数的信息，如操作码是函数调用，则能获取到函数的名称、描述符等信息。另外我们还能获取到方法栈数据，程序计数器等数据，使用这些数据便能实现想要检测的代码模式。</p>
+<p>先来看下OpcodeStackDetector的继承结构：<br><img src="/../img/findbugs/opcode_stack_detector.png" alt="OpcodeStackDetector"></p>
+<p>这些类的主要作用是：</p>
+<p><strong>BetterVisitor</strong>定义了许多visit方法，这些方法用来实现对class文件对象的访问（JavaClass，Method等）。</p>
+<p><strong>DismantleBytecode</strong>用来分析字节码，提取操作码、操作数、计数器等数据。这个类实现了visit(Code)方法，并为每一个操作码调用sawOpcode(int)方法。</p>
+<p><strong>OpcodeStackDetector</strong>类有操作数stack数据，对于stack based模式检测是必不可少的。另外还定义了sawOpcode(int)方法，我们的检测代码在该方法中实现。</p>
+<h3 id="u68C0_u6D4B_u5668_u4F8B_u5B50"><a href="#u68C0_u6D4B_u5668_u4F8B_u5B50" class="headerlink" title="检测器例子"></a>检测器例子</h3><p>仍以<a href="http://panzhihui.github.io/20150511/从定义最简单Findbugs-Detector做起/">从定义最简单Findbugs Detector做起</a>提到的检测器做为例子，用来检测BigDecimal实例使用Double进行构造，另外每次调用sawOpcode函数，都打印出方法栈信息：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sawOpcode</span><span class="params">(<span class="keyword">int</span> seen)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//System.out.println("visit seen:" + seen);</span></span><br><span class="line">    <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">    <span class="keyword">if</span> (seen == INVOKESPECIAL &amp;&amp; getClassConstantOperand().equals(<span class="string">"java/math/BigDecimal"</span>)</span><br><span class="line">            &amp;&amp; getNameConstantOperand().equals(<span class="string">"&lt;init&gt;"</span>) &amp;&amp; getSigConstantOperand().equals(<span class="string">"(D)V"</span>)) &#123;</span><br><span class="line">        OpcodeStack.Item top = stack.getStackItem(<span class="number">0</span>);</span><br><span class="line">        Object value = top.getConstant();</span><br><span class="line">        System.out.println(<span class="string">"stack num local values:"</span> + stack.getNumLocalValues() + </span><br><span class="line">                <span class="string">"  stack depth"</span>+ stack.getStackDepth());</span><br><span class="line">        <span class="keyword">if</span> (value <span class="keyword">instanceof</span> Double) &#123;</span><br><span class="line">            <span class="keyword">double</span> arg = ((Double) value).doubleValue();</span><br><span class="line">            String dblString = Double.toString(arg);</span><br><span class="line">            String bigDecimalString = <span class="keyword">new</span> BigDecimal(arg).toString();</span><br><span class="line">            <span class="keyword">boolean</span> ok = dblString.equals(bigDecimalString) || dblString.equals(bigDecimalString + <span class="string">".0"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!ok) &#123;</span><br><span class="line">                <span class="keyword">boolean</span> scary = dblString.length() &lt;= <span class="number">8</span> &amp;&amp; dblString.toUpperCase().indexOf(<span class="string">"E"</span>) == -<span class="number">1</span>;</span><br><span class="line">                bugReporter.reportBug(<span class="keyword">new</span> BugInstance(<span class="keyword">this</span>, <span class="string">"TUTORIAL_BUG"</span>, scary ? NORMAL_PRIORITY : LOW_PRIORITY)</span><br><span class="line">                        .addClassAndMethod(<span class="keyword">this</span>).addString(dblString).addSourceLine(<span class="keyword">this</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"stack num local values in return:"</span> + stack.getNumLocalValues() + </span><br><span class="line">                <span class="string">"  stack depth:"</span>+ stack.getStackDepth());</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;stack.getStackDepth(); ++i)</span><br><span class="line">        System.out.println(<span class="string">"stack item "</span>+i+<span class="string">":"</span> + stack.getStackItem(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先if语句判断操作码是一个构造函数调用，且方法名、类名、方法描述符都符合，以验证这是一个BigDecimal初始化；再取出执行此字节命令时的栈顶操作数stack.getStackItem(0)，上面的代码用该double构造BigDecimal实例，判断dblString.equals(bigDecimalString)来确定是否报告这个警告。</p>
+<p>将该检测器放到findbugs中，检测第一部分提到的字节码，栈信息输出如下：<br><img src="/../img/findbugs/example_output.png" alt="output"></p>
+<p>前面提到了visit方法，这些方法在findbugs分析到相应的class文件部分时会被调用，如visit(JavaClass obj)方法在分析class文件时调用；visit(Method me)方法在findbugs分析方法时调用；visit(Code code)在findbugs分析字节码指令是调用。需要注意的是，调用visit(Code code)时，一定要调用super.visit(code)方法，否则我们实现的sawOpcode方法将不会调用，因为sawOpcode是在super.visit(code)方法中调用的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Code code)</span></span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"visit code!!!!!!!"</span>);</span><br><span class="line">    <span class="comment">//System.out.println("code:" + code.toString());</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment">//yi ding yao fang wen zhe ge</span></span><br><span class="line">    <span class="keyword">super</span>.visit(code);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用visit方法可以实现必要的初始化操作，如某些变量在对字节码检测之前设置出事状态，那么可以把这些操作放在visit(Code)中，这样在每一次分析方法字节码时，状态都将被重置。</p>
+
       
     </div>
     
@@ -248,7 +295,7 @@
         <p><span>本文标题:</span><a href="/20150523/FindBugs检测器实现-1/">FindBugs检测器实现(1)</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Spanda 的个人博客">Spanda</a></p>
         <p><span>发布时间:</span>2015年05月23日 - 19时39分</p>
-        <p><span>最后更新:</span>2016年01月22日 - 19时44分</p>
+        <p><span>最后更新:</span>2016年01月24日 - 11时01分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/20150523/FindBugs检测器实现-1/" title="FindBugs检测器实现(1)">http://panzhihui.github.io/20150523/FindBugs检测器实现-1/</a>
             <span class="copy-path" data-clipboard-text="原文: http://panzhihui.github.io/20150523/FindBugs检测器实现-1/　　作者: Spanda" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -284,7 +331,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B57_u8282_u7801_u6307_u4EE4"><span class="toc-number">1.</span> <span class="toc-text">字节码指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OpcodeStackDetector"><span class="toc-number">2.</span> <span class="toc-text">OpcodeStackDetector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u68C0_u6D4B_u5668_u4F8B_u5B50"><span class="toc-number">3.</span> <span class="toc-text">检测器例子</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
