@@ -135,7 +135,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/bcel/" style="font-size: 10px;">bcel</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/detector/" style="font-size: 13.33px;">detector</a> <a href="/tags/findbugs/" style="font-size: 16.67px;">findbugs</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/io/" style="font-size: 13.33px;">io</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/opcode/" style="font-size: 10px;">opcode</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/pool/" style="font-size: 10px;">pool</a> <a href="/tags/reader/" style="font-size: 10px;">reader</a> <a href="/tags/stream/" style="font-size: 10px;">stream</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/writer/" style="font-size: 10px;">writer</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 13.33px;">笔试题</a>
+                        <a href="/tags/ASCII/" style="font-size: 10px;">ASCII</a> <a href="/tags/GB2312/" style="font-size: 10px;">GB2312</a> <a href="/tags/bcel/" style="font-size: 10px;">bcel</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/bytecode/" style="font-size: 10px;">bytecode</a> <a href="/tags/class/" style="font-size: 10px;">class</a> <a href="/tags/detector/" style="font-size: 13.33px;">detector</a> <a href="/tags/findbugs/" style="font-size: 16.67px;">findbugs</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/io/" style="font-size: 13.33px;">io</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/nio/" style="font-size: 10px;">nio</a> <a href="/tags/opcode/" style="font-size: 10px;">opcode</a> <a href="/tags/plugin/" style="font-size: 10px;">plugin</a> <a href="/tags/pool/" style="font-size: 10px;">pool</a> <a href="/tags/reader/" style="font-size: 10px;">reader</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/stream/" style="font-size: 10px;">stream</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/unicode/" style="font-size: 10px;">unicode</a> <a href="/tags/writer/" style="font-size: 10px;">writer</a> <a href="/tags/字符集/" style="font-size: 10px;">字符集</a> <a href="/tags/笔试题/" style="font-size: 13.33px;">笔试题</a>
                     </div>
                 </section>
                 
@@ -206,6 +206,74 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-了解Java-Class文件结构" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20150514/了解Java-Class文件结构/" class="article-date">
+      <time datetime="2015-05-13T17:58:55.000Z" itemprop="datePublished">2015-05-14</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20150514/了解Java-Class文件结构/">了解Java Class文件结构</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>我们都知道Java文件经过编译后是一个二进制的class文件，但多数情况下我们更了解Java语法，它能帮助我们编写漂亮的代码，但知道Java更底层的东西我们就能写出更高效的代码。在研究findbugs工具时，由于其使用BCEL来处理class文件，这就要求我们对class文件的基本结构有一定的了解。这里纯粹是记录我在学习class文件结构的一些总结，要更系统深入的学习可以查看官方文档<a href="/(http://docs.oracle.com/javase/specs/jvms/se7/html/)">The Java Virtual Machine Specification</a>。</p>
+<blockquote>
+<p>1.class文件是由8个字节为基础的字节流构成的，这些字节流之间都严格按照规定的顺序排列，并且字节之间不存在任何空隙，对于超过8个字节的数据，将按照Big-Endian的顺序存储的。<br>2.class文件结构采用类似C语言的结构体来存储数据的，主要有两类数据项，无符号数和表，无符号数用来表述数字，索引引用以及字符串等，比如 u1,u2,u4,u8分别代表1个字节，2个字节，4个字节，8个字节的无符号数，而表是由多个无符号数以及其它的表组成的复合结构。</p>
+</blockquote>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/学习总结/">学习总结</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bytecode/">bytecode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/class/">class</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/20150514/了解Java-Class文件结构/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
   
     <article id="post-从定义最简单Findbugs-Detector做起" class="article article-type-post" itemscope itemprop="blogPost">
   
